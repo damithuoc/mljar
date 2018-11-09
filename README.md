@@ -1,2 +1,2 @@
-# mljar
-Machine Learning for humans! 
+# MLJAR - Machine Learning for humans! 
+
