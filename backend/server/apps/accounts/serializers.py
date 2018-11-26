@@ -78,7 +78,7 @@ class MljarUserCreateSerializer(serializers.ModelSerializer):
             my_org.save()
 
             membership = MljarMembership(user=user, organization=my_org, status="admin")
-            mmebership.save()
+            membership.save()
 
             if settings.SEND_ACTIVATION_EMAIL:
                 user.is_active = False
