@@ -23,8 +23,12 @@ class TestBase(unittest.TestCase):
 
     def create_user_and_login(self, payload):
         r = requests.post(self.get_server_url() + "/users/create", json=payload)
+        #if r.status_code != 204:
+        #    print(r.status_code, r.text)
         # we are not checking here the response status code, because maybe user already exists in db
         r = requests.post(self.get_server_url() + "/auth/token/login", json=payload)
+        if r.status_code != 200:
+            print(r.text)
         self.assertEqual(r.status_code, 200)
         token = r.json().get("auth_token")
         return token
@@ -42,4 +46,5 @@ class TestBase(unittest.TestCase):
         if r.status_code != expected_status_code:
             print(r.text)
         self.assertEqual(r.status_code, expected_status_code)
-        return r.json()
+        if expected_status_code == 200:
+            return r.json()
