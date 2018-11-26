@@ -29,10 +29,10 @@ from accounts.serializers import OrganizationSerializer
 
 class MljarUserOrganizationList(generics.ListAPIView):
     serializer_class = OrganizationSerializer
-    permission_classes = ()
+    permission_classes = (permissions.IsAuthenticated,)
     def get_queryset(self):
         user = self.request.user
-        return MljarOrganization.objects.filter(myuser=user)
+        return MljarOrganization.objects.filter(mljaruser=user)
 
 class MljarUserCreateView(generics.CreateAPIView):
     """
