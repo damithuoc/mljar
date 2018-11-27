@@ -7,6 +7,7 @@ from accounts.models import MljarUser, MljarOrganization
 from common.fields import AutoCreatedField
 from common.fields import AutoLastModifiedField
 
+
 class Project(models.Model):
 
     title = models.TextField()
