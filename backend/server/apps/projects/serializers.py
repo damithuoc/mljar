@@ -5,7 +5,7 @@ import projects.models as models
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Project
-        read_only_fields = ("id", "created_by", "updated_at", "parent_organization")
+        read_only_fields = ("id", "created_by", "created_at", "updated_at", "parent_organization")
         fields = (
             "id",
             "title",
@@ -15,6 +15,3 @@ class ProjectSerializer(serializers.ModelSerializer):
             "created_by",
             "parent_organization",
         )
-        # extra_kwargs = {
-        #    'parent_organization': {'write_only': True}
-        # }

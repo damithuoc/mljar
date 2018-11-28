@@ -4,8 +4,11 @@ from test_base import TestBase
 
 
 class TestBasicUpload(TestBase):
+
     def test_upload(self):
-        print("Upload ...")
+        """
+        Uploads sample file to basic storage.
+        """
         token = self.create_user_and_login(self.user1_params)
         headers = {"Authorization": "Token " + token}
         # add project #1
@@ -14,7 +17,7 @@ class TestBasicUpload(TestBase):
             "post", "/api/{0}/projects".format(self.org1), payload, token, 201
         )
         r = requests.get(
-            "{0}/{1}/{2}/{3}/upload_destination".format(
+            "{0}/api/{1}/{2}/{3}/upload_destination".format(
                 self.get_server_url(), self.org1, project["id"], "test.txt"
             ),
             headers=headers,
@@ -29,9 +32,10 @@ class TestBasicUpload(TestBase):
         f.close()
         with open(path, "rb") as fin:
             r = requests.put(
-                "{0}/{1}/{2}/{3}/upload".format(
+                "{0}/api/{1}/{2}/{3}/upload".format(
                     self.get_server_url(), self.org1, destination, filename
                 ),
                 data=fin.read(),
+                headers=headers
             )
-            print(r)
+            self.assertEqual(r.status_code, 201)

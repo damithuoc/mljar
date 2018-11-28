@@ -9,8 +9,10 @@ from apps.common.permissions import IsAuthenticatedAndFromOrganization
 
 from storage.storage import Storage
 
+
 class FileUploadView(views.APIView):
     parser_classes = (FileUploadParser,)
+    permission_classes = (IsAuthenticatedAndFromOrganization,)
 
     def put(self, request, organization_slug, destination, filename, format=None):
         file_obj = request.data["file"]

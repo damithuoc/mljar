@@ -9,14 +9,14 @@ from common.fields import AutoCreatedField
 from common.fields import AutoLastModifiedField
 
 
-class DataSourceFile(models.Model):
+class FileDataSource(models.Model):
 
     title = models.TextField()
     description = models.TextField(blank=True, null=True)
 
-    file_path = models.CharField(max_length=1024) # file path in storage
-    file_name = models.CharField(max_length=256) # file name from upload
-    file_size = models.DecimalField(decimal_places=2, max_digits=10) #in MB
+    file_path = models.CharField(max_length=1024)  # file path in storage
+    file_name = models.CharField(max_length=256)  # file name from upload
+    file_size = models.DecimalField(decimal_places=2, max_digits=10)  # in MB
 
     created_at = AutoCreatedField()
     updated_at = AutoLastModifiedField()

@@ -1,8 +1,8 @@
 import os
 from config import BASIC_STORAGE_DIR
 
-class BasicStorageProvider(object):
 
+class BasicStorageProvider(object):
     def __init__(self):
         self.base_dir = BASIC_STORAGE_DIR
 
@@ -14,13 +14,10 @@ class BasicStorageProvider(object):
 
     def create_dir(self, destination):
         dst_dir = os.path.join(self.base_dir, destination)
-        print("dst_dir", dst_dir)
         try:
             os.makedirs(dst_dir)
         except OSError:
-            print ("Creation of the directory %s failed" % dst_dir)
-        else:
-            print ("Successfully created the directory %s" % dst_dir)
+            print("Creation of the directory {0} failed".format(dst_dir))
 
     def get_path(self, destination, filename):
         path = os.path.join(self.base_dir, destination, filename)

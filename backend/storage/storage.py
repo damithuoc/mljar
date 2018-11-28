@@ -1,5 +1,6 @@
 from storage.basic_storage_provider import BasicStorageProvider
 
+
 class Storage(object):
     def __init__(self):
         self.provider = BasicStorageProvider()
