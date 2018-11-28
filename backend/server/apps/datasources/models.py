@@ -24,3 +24,18 @@ class FileDataSource(models.Model):
     created_by = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
     parent_organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    #data_frame = models.ForeignKey(DataFrame, on_delete=models.CASCADE)
+
+
+
+class DataFrame(models.Model):
+
+    file_path = models.CharField(max_length=1024)  # file path in storage
+
+    created_at = AutoCreatedField()
+    updated_at = AutoLastModifiedField()
+
+    created_by = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
+    parent_organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
+    parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
