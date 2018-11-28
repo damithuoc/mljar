@@ -12,21 +12,51 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.TextField()),
-                ('description', models.TextField(blank=True, null=True)),
-                ('created_at', common.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False)),
-                ('updated_at', common.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False)),
-                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('parent_organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.MljarOrganization')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.TextField()),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "created_at",
+                    common.fields.AutoCreatedField(
+                        default=django.utils.timezone.now, editable=False
+                    ),
+                ),
+                (
+                    "updated_at",
+                    common.fields.AutoLastModifiedField(
+                        default=django.utils.timezone.now, editable=False
+                    ),
+                ),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "parent_organization",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="accounts.MljarOrganization",
+                    ),
+                ),
             ],
-        ),
+        )
     ]

@@ -4,7 +4,6 @@ from test_base import TestBase
 
 
 class TestBasicUpload(TestBase):
-
     def test_upload(self):
         """
         Uploads sample file to basic storage.
@@ -36,6 +35,6 @@ class TestBasicUpload(TestBase):
                     self.get_server_url(), self.org1, destination, filename
                 ),
                 data=fin.read(),
-                headers=headers
+                headers=headers,
             )
             self.assertEqual(r.status_code, 201)

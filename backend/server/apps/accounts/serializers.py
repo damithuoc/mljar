@@ -17,11 +17,12 @@ from .models import MljarMembership
 
 from django.template.defaultfilters import slugify
 
-class OrganizationSerializer(serializers.ModelSerializer):
 
+class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = MljarOrganization
-        fields = ('id', 'name', 'slug')
+        fields = ("id", "name", "slug")
+
 
 class MljarUserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={"input_type": "password"}, write_only=True)

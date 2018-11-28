@@ -5,11 +5,11 @@ upload_urlpatterns = [
     url(
         r"^api/(?P<organization_slug>.+)/(?P<destination>.+)/(?P<filename>.+)/upload$",
         FileUploadView.as_view(),
-        name = "file_upload"
+        name="file_upload",
     ),
     url(
         r"^api/(?P<organization_slug>.+)/(?P<project_id>.+)/(?P<filename>.+)/upload_destination$",
         FileUploadDestinationView.as_view(),
-        name = "file_upload_destination"
+        name="file_upload_destination",
     ),
 ]

@@ -11,21 +11,24 @@ import pytest
 
 
 class SignupTestCase(TestCase):
-
     def setUp(self):
         self.client = Client()
-        self.params = {'username': 'piotrek',
-                    'email': 'piotrek@piotrek.pl',
-                    'password': 'verysecret',
-                    'organization': 'big co'}
+        self.params = {
+            "username": "piotrek",
+            "email": "piotrek@piotrek.pl",
+            "password": "verysecret",
+            "organization": "big co",
+        }
 
-    def post_request_and_check(self, url, params, status_code, token = None):
+    def post_request_and_check(self, url, params, status_code, token=None):
         headers = {}
         if token:
-            headers = {'HTTP_AUTHORIZATION': 'Token '+token}
-        request = self.client.post(url, params, content_type="application/json", **headers)
+            headers = {"HTTP_AUTHORIZATION": "Token " + token}
+        request = self.client.post(
+            url, params, content_type="application/json", **headers
+        )
         if request.status_code != status_code:
-            print('Print details before fails')
+            print("Print details before fails")
             print(request.status_code)
             print(request.json())
         self.assertEqual(request.status_code, status_code)
@@ -35,49 +38,62 @@ class SignupTestCase(TestCase):
 
     def test_get_organizations(self):
         # create user #1
-        self.post_request_and_check(reverse('user_create'), self.params, 201)
+        self.post_request_and_check(reverse("user_create"), self.params, 201)
         # create user #2
         params2 = copy.deepcopy(self.params)
-        params2['email'] = 'new@email.com'
-        params2['organization'] = 'some new co'
-        self.post_request_and_check(reverse('user_create'), params2, 201)
+        params2["email"] = "new@email.com"
+        params2["organization"] = "some new co"
+        self.post_request_and_check(reverse("user_create"), params2, 201)
         # login user #1
-        token = self.post_request_and_check(reverse('login'), self.params, 200).get('auth_token')
-        headers = {'HTTP_AUTHORIZATION': 'Token '+token}
-        request = self.client.get(reverse('user_organization'), content_type="application/json", **headers)
+        token = self.post_request_and_check(reverse("login"), self.params, 200).get(
+            "auth_token"
+        )
+        headers = {"HTTP_AUTHORIZATION": "Token " + token}
+        request = self.client.get(
+            reverse("user_organization"), content_type="application/json", **headers
+        )
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request.json()[0]['name'], self.params['organization'])
+        self.assertEqual(request.json()[0]["name"], self.params["organization"])
         self.assertEqual(len(request.json()), 1)
         # login user #2
-        token = self.post_request_and_check(reverse('login'), params2, 200).get('auth_token')
-        headers = {'HTTP_AUTHORIZATION': 'Token '+token}
-        request = self.client.get(reverse('user_organization'), content_type="application/json", **headers)
+        token = self.post_request_and_check(reverse("login"), params2, 200).get(
+            "auth_token"
+        )
+        headers = {"HTTP_AUTHORIZATION": "Token " + token}
+        request = self.client.get(
+            reverse("user_organization"), content_type="application/json", **headers
+        )
         self.assertEqual(request.status_code, 200)
-        self.assertEqual(request.json()[0]['name'], params2['organization'])
+        self.assertEqual(request.json()[0]["name"], params2["organization"])
         self.assertEqual(len(request.json()), 1)
-
 
     def test_create_and_delete(self):
         # create user
-        self.post_request_and_check(reverse('user_create'), self.params, 201)
+        self.post_request_and_check(reverse("user_create"), self.params, 201)
         # login
-        token = self.post_request_and_check(reverse('login'), self.params, 200).get('auth_token')
+        token = self.post_request_and_check(reverse("login"), self.params, 200).get(
+            "auth_token"
+        )
         # delete
-        self.post_request_and_check(reverse('user_delete'),
-                        {'current_password': self.params['password']}, 204, token)
+        self.post_request_and_check(
+            reverse("user_delete"),
+            {"current_password": self.params["password"]},
+            204,
+            token,
+        )
 
     def test_create_duplicates(self):
         # create user
-        self.post_request_and_check(reverse('user_create'), self.params, 201)
+        self.post_request_and_check(reverse("user_create"), self.params, 201)
         # create the same user
-        self.post_request_and_check(reverse('user_create'), self.params, 400)
+        self.post_request_and_check(reverse("user_create"), self.params, 400)
         # the same user but with new email - should still fail
         self.new_params = copy.deepcopy(self.params)
-        self.new_params['email'] = 'piotrek2@piotrek.pl'
-        self.post_request_and_check(reverse('user_create'), self.new_params, 400)
+        self.new_params["email"] = "piotrek2@piotrek.pl"
+        self.post_request_and_check(reverse("user_create"), self.new_params, 400)
         # set new organization
-        self.new_params['organization'] = 'big co 2'
-        self.post_request_and_check(reverse('user_create'), self.new_params, 201)
+        self.new_params["organization"] = "big co 2"
+        self.post_request_and_check(reverse("user_create"), self.new_params, 201)
 
     def test_reset_password(self):
         pass
@@ -85,10 +101,10 @@ class SignupTestCase(TestCase):
     def atest_delete2(self):
 
         mail.send_mail(
-            'Subject here',
-            'Here is the message. 123',
-            'from@example.com',
-            ['to@example.com'],
+            "Subject here",
+            "Here is the message. 123",
+            "from@example.com",
+            ["to@example.com"],
             fail_silently=False,
         )
 
@@ -97,13 +113,11 @@ class SignupTestCase(TestCase):
         print(mail.outbox[0].subject)
         print(mail.outbox[0].body)
 
-
     def test_missing_values(self):
-        params = {'username': 'piotrek',
-                    'password': 'verysecret'}
+        params = {"username": "piotrek", "password": "verysecret"}
 
-        self.post_request_and_check(reverse('user_create'), params, 400)
-        params['organization'] = 'very big co'
-        self.post_request_and_check(reverse('user_create'), params, 400)
-        params['email'] = 'piotrek@piotrek.pl'
-        self.post_request_and_check(reverse('user_create'), params, 201)
+        self.post_request_and_check(reverse("user_create"), params, 400)
+        params["organization"] = "very big co"
+        self.post_request_and_check(reverse("user_create"), params, 400)
+        params["email"] = "piotrek@piotrek.pl"
+        self.post_request_and_check(reverse("user_create"), params, 201)

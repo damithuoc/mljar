@@ -15,6 +15,7 @@ from rest_framework.authtoken.models import Token
 from common.fields import AutoCreatedField
 from common.fields import AutoLastModifiedField
 
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
@@ -65,6 +66,7 @@ class MljarOrganization(models.Model):
             self.slug = slugify(self.name)
         super(MljarOrganization, self).save(*args, **kwargs)
 
+
 class MljarUser(AbstractUser):
     email = models.EmailField(
         blank=False, max_length=254, verbose_name="email address", unique=True
@@ -86,12 +88,9 @@ class MljarUser(AbstractUser):
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
 
+
 class MljarMembership(models.Model):
-    statuses = (
-        ("admin", "Admin"),
-        ("view", "View only"),
-        ("member", "Member"),
-    )
+    statuses = (("admin", "Admin"), ("view", "View only"), ("member", "Member"))
     user = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
     organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
     status = models.CharField(

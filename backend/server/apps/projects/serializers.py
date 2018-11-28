@@ -5,7 +5,13 @@ import projects.models as models
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Project
-        read_only_fields = ("id", "created_by", "created_at", "updated_at", "parent_organization")
+        read_only_fields = (
+            "id",
+            "created_by",
+            "created_at",
+            "updated_at",
+            "parent_organization",
+        )
         fields = (
             "id",
             "title",
