@@ -10,3 +10,6 @@ DATABASE_USER = os.environ.get('DATABASE_USER', 'postgres')
 DATABASE_PASS = os.environ.get('DATABASE_PASS', '1234')
 DATABASE_PORT = os.environ.get('DATABASE_PORT', '5433')
 DJANGO_DEBUG = os.environ.get('DJANGO_DEBUG', True)
+
+STORAGE_TYPE = os.environ.get('STORAGE_TYPE', 'basic')
+BASIC_STORAGE_DIR = os.environ.get("BASIC_STORAGE_DIR", "/home/piotr/tests")

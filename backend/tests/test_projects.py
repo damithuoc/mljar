@@ -79,6 +79,7 @@ class TestProjects(TestBase):
         self.assertEqual(project["id"], project_details["id"])
 
     def test_project_update(self):
+        print("todo project update")
         """
         token = self.create_user_and_login(self.user1_params)
         # add project
