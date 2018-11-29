@@ -71,5 +71,6 @@ class MLModel(models.Model):
     status = models.CharField(
         max_length=32, choices=statuses, default="view", blank=False
     )
+    errors = JSONField(blank=True, null=True)
 
     task_id = models.CharField(max_length=128)  # worker task id

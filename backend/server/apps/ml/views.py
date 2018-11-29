@@ -4,8 +4,9 @@ import copy
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework import viewsets
-from ml.models import MLExperiment
-from ml.serializers import MLExperimentSerializer
+from ml.models import MLExperiment, MLModel
+from ml.serializers import MLExperimentSerializer, MLModelSerializer
+
 
 from django.db import transaction
 
@@ -57,8 +58,8 @@ class MLModelViewSet(
     mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
 ):
 
-    serializer_class = MLExperimentSerializer
-    queryset = MLExperiment.objects.all()
+    serializer_class = MLModelSerializer
+    queryset = MLModel.objects.all()
     permission_classes = (IsAuthenticatedAndFromOrganization,)
 
     def get_queryset(self):
