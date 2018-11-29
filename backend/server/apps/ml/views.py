@@ -17,7 +17,9 @@ from accounts.models import MljarOrganization
 
 
 class MLExperimentViewSet(viewsets.ModelViewSet):
-
+    """
+        Machine Learning Experiment.
+    """
     serializer_class = MLExperimentSerializer
     queryset = MLExperiment.objects.all()
     permission_classes = (IsAuthenticatedAndFromOrganization,)

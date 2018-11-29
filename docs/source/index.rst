@@ -8,6 +8,6 @@ Welcome to MLJAR's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: REST API
+   :caption: Server
 
    rest_api

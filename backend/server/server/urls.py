@@ -8,8 +8,12 @@ from apps.projects.urls import urlpatterns as projects_urlpatterns
 from apps.datasources.urls import urlpatterns as datasources_urlpatterns
 from apps.ml.urls import urlpatterns as ml_urlpatterns
 from storage.basic_storage_urls import upload_urlpatterns
+from rest_framework.documentation import include_docs_urls
 
-urlpatterns = [path("admin/", admin.site.urls)]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    url(r'^docs/', include_docs_urls(title='MLJAR API')),
+]
 
 urlpatterns += accounts_urlpatterns
 urlpatterns += projects_urlpatterns
