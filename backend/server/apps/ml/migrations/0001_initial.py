@@ -2,6 +2,7 @@
 
 import common.fields
 from django.conf import settings
+import django.contrib.postgres.fields.jsonb
 from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
@@ -19,7 +20,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="DataFrame",
+            name="MLExperiment",
             fields=[
                 (
                     "id",
@@ -30,7 +31,41 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("file_path", models.CharField(max_length=1024)),
+                ("title", models.TextField()),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "params",
+                    django.contrib.postgres.fields.jsonb.JSONField(
+                        blank=True, null=True
+                    ),
+                ),
+                (
+                    "column_usage",
+                    django.contrib.postgres.fields.jsonb.JSONField(
+                        blank=True, null=True
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("created", "Created"),
+                            ("started", "Started"),
+                            ("progress", "In progress"),
+                            ("done", "Done"),
+                            ("error", "Error"),
+                        ],
+                        default="view",
+                        max_length=32,
+                    ),
+                ),
+                (
+                    "errors",
+                    django.contrib.postgres.fields.jsonb.JSONField(
+                        blank=True, null=True
+                    ),
+                ),
+                ("task_id", models.CharField(max_length=128)),
                 (
                     "created_at",
                     common.fields.AutoCreatedField(
@@ -67,7 +102,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name="FileDataSource",
+            name="MLModel",
             fields=[
                 (
                     "id",
@@ -78,11 +113,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.TextField()),
-                ("description", models.TextField(blank=True, null=True)),
-                ("file_path", models.CharField(max_length=1024)),
-                ("file_name", models.CharField(max_length=256)),
-                ("file_size", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("model_key", models.TextField(db_index=True)),
                 (
                     "created_at",
                     common.fields.AutoCreatedField(
@@ -95,11 +126,53 @@ class Migration(migrations.Migration):
                         default=django.utils.timezone.now, editable=False
                     ),
                 ),
+                ("model_type", models.CharField(max_length=128)),
+                (
+                    "params",
+                    django.contrib.postgres.fields.jsonb.JSONField(
+                        blank=True, null=True
+                    ),
+                ),
+                (
+                    "training_details",
+                    django.contrib.postgres.fields.jsonb.JSONField(
+                        blank=True, null=True
+                    ),
+                ),
+                ("training_time", models.IntegerField(blank=True, null=True)),
+                (
+                    "metric",
+                    django.contrib.postgres.fields.jsonb.JSONField(
+                        blank=True, null=True
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("created", "Created"),
+                            ("started", "Started"),
+                            ("progress", "In progress"),
+                            ("done", "Done"),
+                            ("error", "Error"),
+                        ],
+                        default="view",
+                        max_length=32,
+                    ),
+                ),
+                ("task_id", models.CharField(max_length=128)),
                 (
                     "created_by",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "parent_experiment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ml.MLExperiment",
                     ),
                 ),
                 (

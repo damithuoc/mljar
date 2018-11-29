@@ -6,6 +6,7 @@ from django.conf.urls import url, include
 from apps.accounts.urls import urlpatterns as accounts_urlpatterns
 from apps.projects.urls import urlpatterns as projects_urlpatterns
 from apps.datasources.urls import urlpatterns as datasources_urlpatterns
+from apps.ml.urls import urlpatterns as ml_urlpatterns
 from storage.basic_storage_urls import upload_urlpatterns
 
 urlpatterns = [path("admin/", admin.site.urls)]
@@ -14,6 +15,7 @@ urlpatterns += accounts_urlpatterns
 urlpatterns += projects_urlpatterns
 urlpatterns += datasources_urlpatterns
 urlpatterns += upload_urlpatterns
+urlpatterns += ml_urlpatterns
 
 if settings.DEBUG:
     from django.conf.urls.static import static

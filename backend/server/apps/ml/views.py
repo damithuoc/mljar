@@ -2,6 +2,8 @@ import time
 import copy
 
 from rest_framework import viewsets
+from rest_framework import mixins
+from rest_framework import viewsets
 from ml.models import MLExperiment
 from ml.serializers import MLExperimentSerializer
 
@@ -51,7 +53,9 @@ class MLExperimentViewSet(viewsets.ModelViewSet):
             raise APIException(str(e))
 
 
-class MLModelViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
+class MLModelViewSet(
+    mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+):
 
     serializer_class = MLExperimentSerializer
     queryset = MLExperiment.objects.all()

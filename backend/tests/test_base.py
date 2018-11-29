@@ -15,11 +15,12 @@ django.setup()
 
 from accounts.models import MljarUser, MljarOrganization, MljarMembership
 from projects.models import Project
+from ml.models import MLExperiment
 
 
 class TestBase(unittest.TestCase):
     def setUp(self):
-        for d in [MljarMembership, MljarUser, MljarOrganization, Project]:
+        for d in [MljarMembership, MljarUser, MljarOrganization, MLExperiment, Project]:
             d.objects.all().delete()
 
     def tearDown(self):

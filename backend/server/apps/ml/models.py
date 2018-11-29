@@ -49,7 +49,7 @@ class MLModel(models.Model):
     created_by = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
     parent_organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    parent_experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE)
+    parent_experiment = models.ForeignKey(MLExperiment, on_delete=models.CASCADE)
 
     model_type = models.CharField(max_length=128, blank=False)
     params = JSONField(
