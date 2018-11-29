@@ -34,7 +34,7 @@ class FileDataSourceViewSet(viewsets.ModelViewSet):
             with transaction.atomic():
                 instance = serializer.save(
                     created_by=self.request.user,
-                    parent_organization = MljarOrganization.objects.get(
+                    parent_organization=MljarOrganization.objects.get(
                         slug=organization_slug
                     ),
                     parent_project_id=project_id,

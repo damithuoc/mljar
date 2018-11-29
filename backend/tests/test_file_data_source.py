@@ -23,8 +23,13 @@ class TestFileDataSource(TestBase):
         )
         self.assertEqual(len(file_sources), 0)
         # add data source (without upload !!!)
-        payload = {"title": "new file", "description": "a new file for training",
-        "file_path": "a", "file_size": 1, "file_name": "train.txt"}
+        payload = {
+            "title": "new file",
+            "description": "a new file for training",
+            "file_path": "a",
+            "file_size": 1,
+            "file_name": "train.txt",
+        }
         file_source = self.request(
             "post",
             "/api/{0}/{1}/file_sources".format(self.org1, project["id"]),
@@ -49,4 +54,4 @@ class TestFileDataSource(TestBase):
 
     def test_edit(self):
         pass
-    """    
+    """

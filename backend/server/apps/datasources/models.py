@@ -25,8 +25,7 @@ class FileDataSource(models.Model):
     parent_organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
-    #data_frame = models.ForeignKey(DataFrame, on_delete=models.CASCADE)
-
+    # data_frame = models.ForeignKey(DataFrame, on_delete=models.CASCADE)
 
 
 class DataFrame(models.Model):
