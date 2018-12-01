@@ -7,7 +7,7 @@ router = DefaultRouter(trailing_slash=False)
 router.register(
     r"(?P<organization_slug>.+)/(?P<project_id>.+)/file_sources",
     FileDataSourceViewSet,
-    base_name="file_sources",
+    basename="file_sources",
 )
 
 urlpatterns = [url(r"^api/v1/", include(router.urls))]

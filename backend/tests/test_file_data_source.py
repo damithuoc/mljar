@@ -11,12 +11,12 @@ class TestFileDataSource(TestBase):
         # add project
         payload = {"title": "New project", "description": "Completely new"}
         project = self.request(
-            "post", "/api/{0}/projects".format(self.org1), payload, token, 201
+            "post", "/api/v1/{0}/projects".format(self.org1), payload, token, 201
         )
         # list file sources, should be empty
         file_sources = self.request(
             "get",
-            "/api/{0}/{1}/file_sources".format(self.org1, project["id"]),
+            "/api/v1/{0}/{1}/file_sources".format(self.org1, project["id"]),
             {},
             token,
             200,
@@ -32,7 +32,7 @@ class TestFileDataSource(TestBase):
         }
         file_source = self.request(
             "post",
-            "/api/{0}/{1}/file_sources".format(self.org1, project["id"]),
+            "/api/v1/{0}/{1}/file_sources".format(self.org1, project["id"]),
             payload,
             token,
             201,
@@ -41,7 +41,7 @@ class TestFileDataSource(TestBase):
 
         file_sources = self.request(
             "get",
-            "/api/{0}/{1}/file_sources".format(self.org1, project["id"]),
+            "/api/v1/{0}/{1}/file_sources".format(self.org1, project["id"]),
             {},
             token,
             200,

@@ -9,13 +9,13 @@ router = DefaultRouter(trailing_slash=False)
 router.register(
     r"(?P<organization_slug>.+)/(?P<project_id>.+)/ml_experiments",
     MLExperimentViewSet,
-    base_name="ml_experiments",
+    basename="ml_experiments",
 )
 
 router.register(
     r"(?P<organization_slug>.+)/(?P<project_id>.+)/ml_models",
     MLModelViewSet,
-    base_name="ml_models",
+    basename="ml_models",
 )
 
 urlpatterns = [url(r"^api/v1/", include(router.urls))]

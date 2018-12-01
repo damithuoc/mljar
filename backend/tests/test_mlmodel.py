@@ -6,14 +6,14 @@ from test_base import TestBase
 from projects.models import Project
 from ml.models import MLExperiment
 from ml.models import MLModel
-from accounts.models import MljarUser, MljarOrganization
+from accounts.models import MljarUser, Organization
 
 
 class TestMLModel(TestBase):
     def test_create_mlmodel(self):
         token = self.create_user_and_login(self.user1_params)
         # should be empty
-        organization = MljarOrganization.objects.get(slug=self.org1)
+        organization = Organization.objects.get(slug=self.org1)
         user = MljarUser.objects.get(email=self.user1_params["email"])
         project = Project(
             title="some title",
@@ -55,14 +55,14 @@ class TestMLModel(TestBase):
         # POST on MLModels is not allowed (HTTP 405)
         ml_model = self.request(
             "post",
-            "/api/{0}/{1}/ml_models".format(self.org1, project.id),
+            "/api/v1/{0}/{1}/ml_models".format(self.org1, project.id),
             {},
             token,
             405,
         )
         ml_models = self.request(
             "get",
-            "/api/{0}/{1}/ml_models".format(self.org1, project.id),
+            "/api/v1/{0}/{1}/ml_models".format(self.org1, project.id),
             {},
             token,
             200,

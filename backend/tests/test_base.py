@@ -12,15 +12,15 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
 import django
 
 django.setup()
-
-from accounts.models import MljarUser, MljarOrganization, MljarMembership
+from django.urls import reverse
+from accounts.models import MljarUser, Organization, Membership
 from projects.models import Project
 from ml.models import MLExperiment
 
 
 class TestBase(unittest.TestCase):
     def setUp(self):
-        for d in [MljarMembership, MljarUser, MljarOrganization, MLExperiment, Project]:
+        for d in [Membership, MljarUser, Organization, MLExperiment, Project]:
             d.objects.all().delete()
 
     def tearDown(self):
@@ -45,11 +45,11 @@ class TestBase(unittest.TestCase):
         return os.environ.get("SERVER_URL", "http://0.0.0.0:8000")
 
     def create_user_and_login(self, payload):
-        r = requests.post(self.get_server_url() + "/users/create", json=payload)
+        r = requests.post(self.get_server_url() + reverse("user_create"), json=payload)
         # if r.status_code != 204:
         #    print(r.status_code, r.text)
         # we are not checking here the response status code, because maybe user already exists in db
-        r = requests.post(self.get_server_url() + "/auth/token/login", json=payload)
+        r = requests.post(self.get_server_url() + reverse("login"), json=payload)
         if r.status_code != 200:
             print(r.text)
         self.assertEqual(r.status_code, 200)
