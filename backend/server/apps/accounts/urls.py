@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 
-from .views import ActivateUserByGet
 from .views import MljarUserCreateView
 
 from django.contrib.auth import get_user_model

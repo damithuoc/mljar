@@ -18,4 +18,4 @@ router.register(
     base_name="ml_models",
 )
 
-urlpatterns = [url(r"^api/", include(router.urls))]
+urlpatterns = [url(r"^api/v1/", include(router.urls))]

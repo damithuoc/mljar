@@ -40,7 +40,7 @@ class MljarUserManager(BaseUserManager):
         return user
 
 
-class MljarOrganization(models.Model):
+class Organization(models.Model):
     name = models.CharField(
         max_length=200,
         help_text="The name of the organization",
@@ -64,7 +64,7 @@ class MljarOrganization(models.Model):
         # Newly created object, so set slug
         if not self.id:
             self.slug = slugify(self.name)
-        super(MljarOrganization, self).save(*args, **kwargs)
+        super(Organization, self).save(*args, **kwargs)
 
 
 class MljarUser(AbstractUser):
@@ -79,7 +79,7 @@ class MljarUser(AbstractUser):
         verbose_name="username",
     )
 
-    organizations = models.ManyToManyField(MljarOrganization, through="MljarMembership")
+    organizations = models.ManyToManyField(Organization, through="Membership")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -89,10 +89,10 @@ class MljarUser(AbstractUser):
         super().delete(*args, **kwargs)
 
 
-class MljarMembership(models.Model):
+class Membership(models.Model):
     statuses = (("admin", "Admin"), ("view", "View only"), ("member", "Member"))
     user = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
-    organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     status = models.CharField(
         max_length=32, choices=statuses, default="view", blank=False
     )

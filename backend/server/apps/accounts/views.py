@@ -23,7 +23,7 @@ from djoser.conf import settings
 
 from rest_framework import generics, permissions, status, views, viewsets
 
-from accounts.models import MljarOrganization
+from accounts.models import Organization
 
 from accounts.serializers import OrganizationSerializer
 
@@ -34,7 +34,7 @@ class MljarUserOrganizationList(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return MljarOrganization.objects.filter(mljaruser=user)
+        return Organization.objects.filter(mljaruser=user)
 
 
 class MljarUserCreateView(generics.CreateAPIView):

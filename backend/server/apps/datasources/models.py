@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 
 from django.utils.timezone import now
-from accounts.models import MljarUser, MljarOrganization
+from accounts.models import MljarUser, Organization
 from projects.models import Project
 
 from common.fields import AutoCreatedField
@@ -22,7 +22,7 @@ class FileDataSource(models.Model):
     updated_at = AutoLastModifiedField()
 
     created_by = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
-    parent_organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
+    parent_organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     # data_frame = models.ForeignKey(DataFrame, on_delete=models.CASCADE)
@@ -36,5 +36,5 @@ class DataFrame(models.Model):
     updated_at = AutoLastModifiedField()
 
     created_by = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
-    parent_organization = models.ForeignKey(MljarOrganization, on_delete=models.CASCADE)
+    parent_organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)

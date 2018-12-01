@@ -12,15 +12,15 @@ from djoser.compat import get_user_email, get_user_email_field_name
 from djoser.conf import settings
 
 User = get_user_model()
-from .models import MljarOrganization
-from .models import MljarMembership
+from .models import Organization
+from .models import Membership
 
 from django.template.defaultfilters import slugify
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MljarOrganization
+        model = Organization
         fields = ("id", "name", "slug")
 
 
@@ -43,7 +43,7 @@ class MljarUserCreateSerializer(serializers.ModelSerializer):
 
         user = User(username=username, email=email, password=password)
 
-        if MljarOrganization.objects.filter(slug=slugify(organization)).exists():
+        if Organization.objects.filter(slug=slugify(organization)).exists():
             raise serializers.ValidationError(
                 {"organization": "orgnization with this name already exists"}
             )
@@ -75,10 +75,10 @@ class MljarUserCreateSerializer(serializers.ModelSerializer):
             }
             user = User.objects.create_user(**user_validated_data)
 
-            my_org = MljarOrganization(name=organization)
+            my_org = Organization(name=organization)
             my_org.save()
 
-            membership = MljarMembership(user=user, organization=my_org, status="admin")
+            membership = Membership(user=user, organization=my_org, status="admin")
             membership.save()
 
             if settings.SEND_ACTIVATION_EMAIL:

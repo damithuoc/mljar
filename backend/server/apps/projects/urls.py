@@ -8,4 +8,4 @@ router.register(
     r"(?P<organization_slug>.+)/projects", ProjectViewSet, base_name="projects"
 )
 
-urlpatterns = [url(r"^api/", include(router.urls))]
+urlpatterns = [url(r"^api/v1/", include(router.urls))]

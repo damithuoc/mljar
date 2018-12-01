@@ -10,4 +10,4 @@ router.register(
     base_name="file_sources",
 )
 
-urlpatterns = [url(r"^api/", include(router.urls))]
+urlpatterns = [url(r"^api/v1/", include(router.urls))]

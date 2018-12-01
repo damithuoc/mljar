@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from accounts.models import MljarMembership
+from accounts.models import Membership
 
 
 class IsAuthenticatedAndFromOrganization(permissions.BasePermission):
@@ -20,7 +20,7 @@ class IsAuthenticatedAndFromOrganization(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             permissed_statuses += ["view"]
 
-        q = MljarMembership.objects.filter(
+        q = Membership.objects.filter(
             user=request.user,
             organization__slug=organization_slug,
             status__in=permissed_statuses,

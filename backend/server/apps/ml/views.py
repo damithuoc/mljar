@@ -13,7 +13,7 @@ from django.db import transaction
 from rest_framework.exceptions import APIException
 from rest_framework import permissions
 from common.permissions import IsAuthenticatedAndFromOrganization
-from accounts.models import MljarOrganization
+from accounts.models import Organization
 
 
 class MLExperimentViewSet(viewsets.ModelViewSet):
@@ -40,7 +40,7 @@ class MLExperimentViewSet(viewsets.ModelViewSet):
             with transaction.atomic():
                 instance = serializer.save(
                     created_by=self.request.user,
-                    parent_organization=MljarOrganization.objects.get(
+                    parent_organization=Organization.objects.get(
                         slug=organization_slug
                     ),
                     parent_project_id=project_id,

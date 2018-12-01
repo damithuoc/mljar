@@ -9,7 +9,7 @@ from rest_framework import permissions
 import time
 import copy
 from common.permissions import IsAuthenticatedAndFromOrganization
-from accounts.models import MljarOrganization
+from accounts.models import Organization
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -28,7 +28,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
             with transaction.atomic():
                 instance = serializer.save(
                     created_by=self.request.user,
-                    parent_organization=MljarOrganization.objects.get(
+                    parent_organization=Organization.objects.get(
                         slug=organization_slug
                     ),
                 )
