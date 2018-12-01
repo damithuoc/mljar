@@ -11,28 +11,29 @@ from djoser import views
 from rest_framework.routers import DefaultRouter
 from accounts.views import MljarUserOrganizationList
 
-# router = DefaultRouter()
-# router.register('users', views.UserViewSet)
 User = get_user_model()
 
 urlpatterns = [
-    url(r"^users/create/?$", MljarUserCreateView.as_view(), name="user_create"),
-    url(r"^users/delete/?$", views.UserDeleteView.as_view(), name="user_delete"),
-    #url(r"^users/activate/?$", views.ActivationView.as_view(), name="user_activate"),
-    url(r"^password/?$", views.SetPasswordView.as_view(), name="set_password"),
+    url(r"^api/v1/users/create/?$", MljarUserCreateView.as_view(), name="user_create"),
+    url(r"^api/v1/users/delete/?$", views.UserDeleteView.as_view(), name="user_delete"),
     url(
-        r"^password/reset/?$", views.PasswordResetView.as_view(), name="password_reset"
+        r"^api/v1/users/password/?$",
+        views.SetPasswordView.as_view(),
+        name="set_password",
     ),
     url(
-        r"^password/reset/confirm/?$",
+        r"^api/v1/users/password/reset/?$",
+        views.PasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    url(
+        r"^api/v1/users/password/reset/confirm/?$",
         views.PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
-
-    url(r"^auth/", include("djoser.urls.authtoken")),
-    path("activate/<str:uid>/<str:token>/", ActivateUserByGet.as_view()),
+    url(r"^api/v1/users/auth/", include("djoser.urls.authtoken")),
     url(
-        r"^user/organization/?$",
+        r"^api/v1/users/organization/?$",
         MljarUserOrganizationList.as_view(),
         name="user_organization",
     ),

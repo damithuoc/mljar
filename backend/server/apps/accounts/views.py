@@ -57,21 +57,3 @@ class MljarUserCreateView(generics.CreateAPIView):
             settings.EMAIL.activation(self.request, context).send(to)
         elif settings.SEND_CONFIRMATION_EMAIL:
             settings.EMAIL.confirmation(self.request, context).send(to)
-
-
-from djoser.conf import django_settings
-
-
-class ActivateUserByGet(views.APIView):
-    def get(self, request, uid, token, format=None):
-        payload = {"uid": uid, "token": token}
-
-        url = "{0}://{1}{2}".format(
-            django_settings.PROTOCOL, django_settings.DOMAIN, reverse("user_activate")
-        )
-        response = requests.post(url, data=payload)
-
-        if response.status_code == 204:
-            return Response({"detail": "all good sir"})
-        else:
-            return Response(response.json())
