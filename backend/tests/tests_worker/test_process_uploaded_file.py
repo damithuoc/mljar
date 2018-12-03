@@ -38,7 +38,7 @@ class TestProcessUploadedFile(TestBase):
 
         destination = "test"
         storage_path = Storage().get_path(destination, local_file_name)
-        #print(storage_path)
+
         data_to_file(example_X, example_y, storage_path)
 
         ds = FileDataSource(
