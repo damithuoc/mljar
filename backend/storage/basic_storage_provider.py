@@ -11,6 +11,7 @@ class BasicStorageProvider(object):
 
     def get(self, data_path):
         print("Get", data_path)
+        # do nothing file is already in our scope
 
     def create_dir(self, destination):
         dst_dir = os.path.join(self.base_dir, destination)

@@ -38,3 +38,6 @@ class DataFrame(models.Model):
     created_by = models.ForeignKey(MljarUser, on_delete=models.CASCADE)
     parent_organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    state = models.CharField(max_length=128)
+    task_id = models.CharField(max_length=128)

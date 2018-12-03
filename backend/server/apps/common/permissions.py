@@ -19,13 +19,13 @@ class IsAuthenticatedAndFromOrganization(permissions.BasePermission):
         permissed_statuses = ["admin", "member"]
         if request.method in permissions.SAFE_METHODS:
             permissed_statuses += ["view"]
-
+        print(Membership.objects.all())
         q = Membership.objects.filter(
             user=request.user,
             organization__slug=organization_slug,
             status__in=permissed_statuses,
         )
-
+        print(q.exists())
         return q.exists()
 
     def has_object_permission(self, request, view, obj):

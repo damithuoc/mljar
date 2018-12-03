@@ -18,12 +18,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 )
-BACKEND_DIR = os.path.dirname(BASE_DIR)
-WORKER_DIR = os.path.join(BACKEND_DIR, "worker")
+# BACKEND_DIR = os.path.dirname(BASE_DIR)
 # Project paths
-sys.path.insert(0, BACKEND_DIR)
-sys.path.insert(0, WORKER_DIR)
+# sys.path.insert(0, BACKEND_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/

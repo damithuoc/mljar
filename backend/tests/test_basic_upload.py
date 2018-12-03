@@ -4,7 +4,7 @@ from test_base import TestBase
 
 
 class TestBasicUpload(TestBase):
-    def offtest_upload(self):
+    def test_upload(self):
         """
         Uploads sample file to basic storage.
         """
@@ -21,7 +21,6 @@ class TestBasicUpload(TestBase):
             ),
             headers=headers,
         )
-        print(r.json())
         destination = r.json()["destination"]
         filename = r.json()["filename"]
 

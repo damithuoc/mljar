@@ -12,8 +12,9 @@ from rest_framework import permissions
 from common.permissions import IsAuthenticatedAndFromOrganization
 from accounts.models import Organization
 
-from worker import WORKERS
-from worker import task_add
+from worker.consumer import WORKERS
+from worker.consumer import ReadUploadedFileTask
+
 
 class FileDataSourceViewSet(viewsets.ModelViewSet):
 
@@ -41,9 +42,12 @@ class FileDataSourceViewSet(viewsets.ModelViewSet):
                     ),
                     parent_project_id=project_id,
                 )
-                job_params = copy.deepcopy(serializer.validated_data) # dont want to see db_id in returned params
-                job_params['db_id'] = instance.id
-                transaction.on_commit(lambda: task_add.delay(job_params))
+                job_params = copy.deepcopy(
+                    serializer.validated_data
+                )  # dont want to see db_id in returned params
+                job_params["db_id"] = instance.id
+
+                # transaction.on_commit(lambda: ReadUploadedFileTask.delay(job_params))
         except Exception as e:
             raise APIException(str(e))
 
