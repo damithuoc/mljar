@@ -16,7 +16,10 @@ class ProcessUploadedFile:
         self.full_file_path = os.path.join(
             params.get("file_path"), params.get("file_name")
         )
+        print(self.full_file_path)
 
     def run(self):
         # read data
         logger.debug("Read data from {0}".format(self.full_file_path))
+        df = DataServe.get(self.full_file_path)
+        print(df.head())

@@ -17,6 +17,7 @@ from accounts.models import MljarUser, Organization
 
 from storage.storage import Storage
 
+from worker.datasources.process_uploaded_file import ProcessUploadedFile
 
 class TestProcessUploadedFile(TestBase):
     def test_preprocess(self):
@@ -59,3 +60,5 @@ class TestProcessUploadedFile(TestBase):
             "db_id": ds.id,
         }
         print(job_params)
+        process_file = ProcessUploadedFile(job_params)
+        process_file.run()

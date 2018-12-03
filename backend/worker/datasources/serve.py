@@ -8,10 +8,9 @@ logger = logging.getLogger(__name__)
 
 class DataServe:
     @staticmethod
-    def get_data(file_path, file_name):
+    def get(full_file_path):
         try:
-            full_file_path = os.path.join(file_path, file_name)
-            logger.debug("Serve data from {0}" % full_file_path)
+            logger.debug("Serve data from {0}".format(full_file_path))
             data = DataServe._read_csv(full_file_path)
             return data  # return pandas data frame
         except Exception as e:
@@ -19,6 +18,6 @@ class DataServe:
             raise e
 
     @staticmethod
-    def _read_csv(self, fname):
+    def _read_csv(fname):
         df = pd.read_csv(fname, skipinitialspace=True)
         return df
