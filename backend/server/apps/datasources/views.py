@@ -47,7 +47,7 @@ class FileDataSourceViewSet(viewsets.ModelViewSet):
                 )  # dont want to see db_id in returned params
                 job_params["db_id"] = instance.id
 
-                # transaction.on_commit(lambda: ReadUploadedFileTask.delay(job_params))
+                transaction.on_commit(lambda: ReadUploadedFileTask.delay(job_params))
         except Exception as e:
             raise APIException(str(e))
 

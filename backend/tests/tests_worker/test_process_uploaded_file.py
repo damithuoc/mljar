@@ -52,3 +52,10 @@ class TestProcessUploadedFile(TestBase):
             parent_project=project,
         )
         ds.save()
+
+        job_params = {
+            "file_path": ds.file_path,
+            "file_name": ds.file_name,
+            "db_id": ds.id,
+        }
+        print(job_params)

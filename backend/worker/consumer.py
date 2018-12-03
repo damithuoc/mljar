@@ -16,6 +16,7 @@ class ReadUploadedFileTask(Task):
     def run(self, *args, **kwargs):
         print("ReadUploadedFileTask")
         params = args[0]
+        print(params)
         ProcessUploadedFile(params).run()
 
 
