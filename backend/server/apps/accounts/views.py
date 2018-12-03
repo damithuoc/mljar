@@ -18,15 +18,16 @@ from rest_framework.reverse import reverse
 
 from djoser import utils, signals
 from djoser.compat import get_user_email, get_user_email_field_name
-from djoser.conf import settings
+from djoser.conf import settings as djoser_settings
 
 
 from rest_framework import generics, permissions, status, views, viewsets
 
-from accounts.models import Organization
+from apps.accounts.models import Organization
 
-from accounts.serializers import OrganizationSerializer
+from apps.accounts.serializers import OrganizationSerializer
 
+from djoser.serializers import UserCreateSerializer
 
 class MljarUserOrganizationList(generics.ListAPIView):
     serializer_class = OrganizationSerializer
@@ -41,8 +42,7 @@ class MljarUserCreateView(generics.CreateAPIView):
     """
     Use this endpoint to register new user.
     """
-
-    serializer_class = settings.SERIALIZERS.user_create
+    serializer_class = djoser_settings.SERIALIZERS.user_create
     permission_classes = [permissions.AllowAny]
 
     def perform_create(self, serializer):
@@ -53,7 +53,7 @@ class MljarUserCreateView(generics.CreateAPIView):
 
         context = {"user": user}
         to = [get_user_email(user)]
-        if settings.SEND_ACTIVATION_EMAIL:
-            settings.EMAIL.activation(self.request, context).send(to)
-        elif settings.SEND_CONFIRMATION_EMAIL:
-            settings.EMAIL.confirmation(self.request, context).send(to)
+        if djoser_settings.SEND_ACTIVATION_EMAIL:
+            djoser_settings.EMAIL.activation(self.request, context).send(to)
+        elif djoser_settings.SEND_CONFIRMATION_EMAIL:
+            djoser_settings.EMAIL.confirmation(self.request, context).send(to)

@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-from accounts.models import Membership
+from apps.accounts.models import Membership
 
 
 class IsAuthenticatedAndFromOrganization(permissions.BasePermission):

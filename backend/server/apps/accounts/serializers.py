@@ -12,8 +12,8 @@ from djoser.compat import get_user_email, get_user_email_field_name
 from djoser.conf import settings
 
 User = get_user_model()
-from .models import Organization
-from .models import Membership
+from apps.accounts.models import Organization
+from apps.accounts.models import Membership
 
 from django.template.defaultfilters import slugify
 

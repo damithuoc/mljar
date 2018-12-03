@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ml.models import MLExperiment, MLModel
+from apps.ml.models import MLExperiment, MLModel
 
 
 class MLExperimentSerializer(serializers.ModelSerializer):

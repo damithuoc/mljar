@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from datasources import models
+from apps.datasources import models
 
 
 class FileDataSourceSerializer(serializers.ModelSerializer):

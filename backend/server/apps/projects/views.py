@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from projects.models import Project
-from projects.serializers import ProjectSerializer
+from apps.projects.models import Project
+from apps.projects.serializers import ProjectSerializer
 
 from django.db import transaction
 
@@ -8,8 +8,8 @@ from rest_framework.exceptions import APIException
 from rest_framework import permissions
 import time
 import copy
-from common.permissions import IsAuthenticatedAndFromOrganization
-from accounts.models import Organization
+from apps.common.permissions import IsAuthenticatedAndFromOrganization
+from apps.accounts.models import Organization
 
 
 class ProjectViewSet(viewsets.ModelViewSet):

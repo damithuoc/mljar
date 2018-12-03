@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 
 from django.utils.timezone import now
-from accounts.models import MljarUser, Organization
-from projects.models import Project
+from apps.accounts.models import MljarUser, Organization
+from apps.projects.models import Project
 
-from common.fields import AutoCreatedField
-from common.fields import AutoLastModifiedField
+from apps.common.fields import AutoCreatedField
+from apps.common.fields import AutoLastModifiedField
 
 
 class MLExperiment(models.Model):

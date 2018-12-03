@@ -8,16 +8,16 @@ from tests.test_base import TestBase
 from tests.data.example import example_X, example_y
 from tests.data.example import data_to_file
 
-from datasources.models import FileDataSource
+from apps.datasources.models import FileDataSource
 
-from projects.models import Project
-from ml.models import MLExperiment
-from ml.models import MLModel
-from accounts.models import MljarUser, Organization
+from apps.projects.models import Project
+from apps.ml.models import MLExperiment
+from apps.ml.models import MLModel
+from apps.accounts.models import MljarUser, Organization
 
 from storage.storage import Storage
 
-from worker.datasources.process_uploaded_file import ProcessUploadedFile
+from worker.etl.process_uploaded_file import ProcessUploadedFile
 
 class TestProcessUploadedFile(TestBase):
     def test_preprocess(self):
@@ -45,7 +45,7 @@ class TestProcessUploadedFile(TestBase):
         ds = FileDataSource(
             title="my file",
             description="desc ...",
-            file_path=storage_path,
+            storage_full_path=storage_path,
             file_name=local_file_name,
             file_size=os.path.getsize(storage_path),
             created_by=user,
@@ -55,7 +55,7 @@ class TestProcessUploadedFile(TestBase):
         ds.save()
 
         job_params = {
-            "file_path": ds.file_path,
+            "storage_full_path": ds.storage_full_path,
             "file_name": ds.file_name,
             "db_id": ds.id,
         }

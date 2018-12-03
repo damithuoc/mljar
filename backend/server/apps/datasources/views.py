@@ -2,15 +2,15 @@ import time
 import copy
 
 from rest_framework import viewsets
-from datasources.models import FileDataSource
-from datasources.serializers import FileDataSourceSerializer
+from apps.datasources.models import FileDataSource
+from apps.datasources.serializers import FileDataSourceSerializer
 
 from django.db import transaction
 
 from rest_framework.exceptions import APIException
 from rest_framework import permissions
-from common.permissions import IsAuthenticatedAndFromOrganization
-from accounts.models import Organization
+from apps.common.permissions import IsAuthenticatedAndFromOrganization
+from apps.accounts.models import Organization
 
 from worker.consumer import WORKERS
 from worker.consumer import ReadUploadedFileTask

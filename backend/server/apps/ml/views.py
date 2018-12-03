@@ -4,16 +4,16 @@ import copy
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework import viewsets
-from ml.models import MLExperiment, MLModel
-from ml.serializers import MLExperimentSerializer, MLModelSerializer
+from apps.ml.models import MLExperiment, MLModel
+from apps.ml.serializers import MLExperimentSerializer, MLModelSerializer
 
 
 from django.db import transaction
 
 from rest_framework.exceptions import APIException
 from rest_framework import permissions
-from common.permissions import IsAuthenticatedAndFromOrganization
-from accounts.models import Organization
+from apps.common.permissions import IsAuthenticatedAndFromOrganization
+from apps.accounts.models import Organization
 
 
 class MLExperimentViewSet(viewsets.ModelViewSet):

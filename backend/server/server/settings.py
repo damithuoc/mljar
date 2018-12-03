@@ -18,9 +18,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 )
-# BACKEND_DIR = os.path.dirname(BASE_DIR)
+BACKEND_DIR = os.path.dirname(BASE_DIR)
 # Project paths
-# sys.path.insert(0, BACKEND_DIR)
+sys.path.insert(0, BACKEND_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
 
@@ -63,10 +63,10 @@ INSTALLED_APPS = [
     "djoser",
     "django_extensions",
     # my apps
-    "projects",
-    "datasources",
-    "ml",
-    "accounts",
+    "apps.projects",
+    "apps.datasources",
+    "apps.ml",
+    "apps.accounts",
 ]
 
 AUTH_USER_MODEL = "accounts.MljarUser"

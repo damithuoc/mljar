@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 
-from ml.views import MLExperimentViewSet
-from ml.views import MLModelViewSet
+from apps.ml.views import MLExperimentViewSet
+from apps.ml.views import MLModelViewSet
 
 from rest_framework.routers import DefaultRouter
 

@@ -12,8 +12,8 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
-from common.fields import AutoCreatedField
-from common.fields import AutoLastModifiedField
+from apps.common.fields import AutoCreatedField
+from apps.common.fields import AutoLastModifiedField
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

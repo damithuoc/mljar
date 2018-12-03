@@ -13,9 +13,9 @@ import django
 
 django.setup()
 from django.urls import reverse
-from accounts.models import MljarUser, Organization, Membership
-from projects.models import Project
-from ml.models import MLExperiment
+from apps.accounts.models import MljarUser, Organization, Membership
+from apps.projects.models import Project
+from apps.ml.models import MLExperiment
 
 
 class TestBase(unittest.TestCase):
