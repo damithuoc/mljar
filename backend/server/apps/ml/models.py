@@ -25,7 +25,7 @@ class MLExperiment(models.Model):
         ("error", "Error"),
     )
     status = models.CharField(
-        max_length=32, choices=statuses, default="view", blank=False
+        max_length=32, choices=statuses, default="created", blank=False
     )
     errors = JSONField(blank=True, null=True)
 
@@ -69,7 +69,7 @@ class MLModel(models.Model):
         ("error", "Error"),
     )
     status = models.CharField(
-        max_length=32, choices=statuses, default="view", blank=False
+        max_length=32, choices=statuses, default="created", blank=False
     )
     errors = JSONField(blank=True, null=True)
 

@@ -14,8 +14,6 @@ from apps.accounts.models import Organization
 
 from worker import consumer
 
-# from worker.consumer import ReadUploadedFileTask
-
 
 class FileDataSourceViewSet(viewsets.ModelViewSet):
 

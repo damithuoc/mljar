@@ -20,9 +20,11 @@ from storage.storage import Storage
 
 from worker.etl.process_uploaded_file import ProcessUploadedFile
 
+from worker.automl.start_mlexperiment import StartMLExperiment
 
-class TestProcessUploadedFile(TestBase):
-    def test_preprocess(self):
+
+class TestStartMLExperiment(TestBase):
+    def test_start_mlexperiment(self):
 
         token = self.create_user_and_login(self.user1_params)
         organization = Organization.objects.get(slug=self.org1)
@@ -68,5 +70,38 @@ class TestProcessUploadedFile(TestBase):
         self.assertEqual(DataFrame.objects.all().count(), 0)
         process_file = ProcessUploadedFile(job_params)
         process_file.run()
+        time.sleep(1)  # not nice but till no websockets, let's use it
         self.assertEqual(DataFrame.objects.all().count(), 1)
         self.assertTrue(DataFrame.objects.filter(source_id=ds.id).count(), 1)
+
+        mljar_df = DataFrame.objects.get(source_id=ds.id)
+
+        print(mljar_df.columns_details)
+
+        ### start ml experiment ###
+        mlexperiment = MLExperiment(
+            title="exp 1",
+            description="na na ...",
+            params={},
+            column_usage={
+                "target": ["target"],
+                "input": ["feature_{0}".format(i) for i in range(4)],
+            },
+            created_by_id=user.id,
+            parent_organization_id=organization.id,
+            parent_project_id=project.id,
+        )
+        mlexperiment.save()
+
+        job_params = {
+            "db_id": mlexperiment.id,
+            "params": mlexperiment.params,
+            "column_usage": mlexperiment.column_usage,
+            "created_by_id": mlexperiment.created_by.id,
+            "parent_organization_id": mlexperiment.parent_organization.id,
+            "parent_project_id": mlexperiment.parent_project.id,
+        }
+        automl = StartMLExperiment(job_params)
+        automl.run()
+        mlexperiment = MLExperiment.objects.get(pk=mlexperiment.id)
+        print(mlexperiment.status)

@@ -15,31 +15,31 @@ from apps.datasources.models import DataFrame
 class ProcessUploadedFile:
     def __init__(self, params):
         # set params
-        self.params = params
-        logger.info("ProcessUploadedFile input parameters: {0}".format(params))
+        self.job_params = params
+        logger.info("ProcessUploadedFile input parameters: {0}".format(self.job_params))
 
     def run(self):
         # read data
         logger.debug(
             "Read data (id={0}) from {1}".format(
-                self.params.get("db_id"), self.params.get("absolute_path")
+                self.job_params.get("db_id"), self.job_params.get("absolute_path")
             )
         )
-        df = DataServe.get(self.params.get("absolute_path"))
+        df = DataServe.get(self.job_params.get("absolute_path"))
 
         # create mljar data frame
         columns_details = self.get_columns_details(df)
         logger.debug("Columns details {0}".format(columns_details))
         mljar_df = DataFrame(
-            source_id=self.params.get("db_id"),
-            absolute_path=self.params.get(
+            source_id=self.job_params.get("db_id"),
+            absolute_path=self.job_params.get(
                 "absolute_path"
             ),  # the same data as source file
             file_size=1,  # TODO fix the file size
             columns_details=columns_details,
-            created_by_id=self.params["created_by_id"],
-            parent_organization_id=self.params["parent_organization_id"],
-            parent_project_id=self.params["parent_project_id"],
+            created_by_id=self.job_params["created_by_id"],
+            parent_organization_id=self.job_params["parent_organization_id"],
+            parent_project_id=self.job_params["parent_project_id"],
         )
         mljar_df.save()
 

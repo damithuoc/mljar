@@ -15,12 +15,23 @@ django.setup()
 from django.urls import reverse
 from apps.accounts.models import MljarUser, Organization, Membership
 from apps.projects.models import Project
-from apps.ml.models import MLExperiment
+from apps.datasources.models import FileDataSource, DataFrame
+from apps.ml.models import MLExperiment, MLModel
 
 
 class TestBase(unittest.TestCase):
     def setUp(self):
-        for d in [Membership, MljarUser, Organization, MLExperiment, Project]:
+        for d in [
+            Membership,
+            MljarUser,
+            Organization,
+            MLExperiment,
+            Project,
+            FileDataSource,
+            DataFrame,
+            MLExperiment,
+            MLModel,
+        ]:
             d.objects.all().delete()
 
     def tearDown(self):

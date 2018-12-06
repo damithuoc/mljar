@@ -35,26 +35,7 @@ import django
 
 django.setup()
 
-from worker.etl.process_uploaded_file import ProcessUploadedFile
-from worker.automl.start_mlexperiment import StartMLExperiment
 from worker.automl.train_mlmodel import TrainMLModel
-
-### Read uploaded file and convert to data frame
-
-class ReadUploadedFileTask(Task):
-    def run(self, *args, **kwargs):
-        logger.info("ReadUploadedFileTask, args:{0}".format(args))
-        params = args[0]
-        ProcessUploadedFile(params).run()
-ReadUploadedFileTask = WORKERS.register_task(ReadUploadedFileTask())
-
-### Start ML Experiment
-class StartMLExperimentTask(Task):
-    def run(self, *args, **kwargs):
-        logger.info("StartMLExperimentTask, args:{0}".format(args))
-        params = args[0]
-        StartMLExperiment(params).run()
-StartMLExperimentTask = WORKERS.register_task(StartMLExperimentTask())
 
 ### Train ML Model
 class TrainMLModelTask(Task):
