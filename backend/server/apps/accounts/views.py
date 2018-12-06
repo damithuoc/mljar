@@ -29,6 +29,7 @@ from apps.accounts.serializers import OrganizationSerializer
 
 from djoser.serializers import UserCreateSerializer
 
+
 class MljarUserOrganizationList(generics.ListAPIView):
     serializer_class = OrganizationSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -42,6 +43,7 @@ class MljarUserCreateView(generics.CreateAPIView):
     """
     Use this endpoint to register new user.
     """
+
     serializer_class = djoser_settings.SERIALIZERS.user_create
     permission_classes = [permissions.AllowAny]
 

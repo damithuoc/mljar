@@ -3,10 +3,10 @@ import requests
 import copy
 from test_base import TestBase
 
-from projects.models import Project
-from ml.models import MLExperiment
-from ml.models import MLModel
-from accounts.models import MljarUser, Organization
+from apps.projects.models import Project
+from apps.ml.models import MLExperiment
+from apps.ml.models import MLModel
+from apps.accounts.models import MljarUser, Organization
 
 
 class TestMLModel(TestBase):

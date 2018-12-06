@@ -3,7 +3,7 @@ from storage.basic_storage_views import FileUploadView, FileUploadDestinationVie
 
 upload_urlpatterns = [
     url(
-        r"^api/v1/(?P<organization_slug>.+)/(?P<destination>.+)/(?P<filename>.+)/upload$",
+        r"^api/v1/(?P<organization_slug>.+)/(?P<relative_dir>.+)/(?P<filename>.+)/upload$",
         FileUploadView.as_view(),
         name="file_upload",
     ),

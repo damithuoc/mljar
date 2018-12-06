@@ -17,7 +17,7 @@ class FileDataSourceSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "description",
-            "file_path",
+            "absolute_path",
             "file_name",
             "file_size",
             "created_at",

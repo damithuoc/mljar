@@ -17,9 +17,9 @@ urlpatterns = [
 
 urlpatterns += accounts_urlpatterns
 urlpatterns += projects_urlpatterns
-#urlpatterns += datasources_urlpatterns
-#urlpatterns += upload_urlpatterns
-#urlpatterns += ml_urlpatterns
+urlpatterns += datasources_urlpatterns
+urlpatterns += upload_urlpatterns
+urlpatterns += ml_urlpatterns
 
 if settings.DEBUG:
     from django.conf.urls.static import static

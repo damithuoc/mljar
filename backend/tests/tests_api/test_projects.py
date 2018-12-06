@@ -78,26 +78,6 @@ class TestProjects(TestBase):
         )
         self.assertEqual(project["id"], project_details["id"])
 
-    def test_project_update(self):
-        print("todo project update")
-        """
-        token = self.create_user_and_login(self.user1_params)
-        # add project
-        payload1 = {"title": "New project", "description": "Completely new"}
-        project = self.request(
-            "post", "/api/v1/{0}/projects".format(self.org1), payload1, token1, 201
-        )
-        # list projects
-        projects = self.request(
-            "get", "/api/v1/{0}/projects".format(self.org1), {}, token1, 200
-        )
-        self.assertEqual(len(projects), 1)  # should be 1
-        # delete project
-        projects = self.request(
-            "get", "/api/v1/{0}/projects".format(self.org1), {}, token1, 200
-        )
-        """
-
     def test_project_delete(self):
         token = self.create_user_and_login(self.user1_params)
         # add project

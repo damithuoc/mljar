@@ -16,42 +16,6 @@ class TestFileDataSource(TestBase):
             "post", "/api/v1/{0}/projects".format(self.org1), payload, self.token, 201
         )
 
-    def test_api_create(self):
-        # list file sources, should be empty
-        file_sources = self.request(
-            "get",
-            "/api/v1/{0}/{1}/file_sources".format(self.org1, self.project["id"]),
-            {},
-            self.token,
-            200,
-        )
-        self.assertEqual(len(file_sources), 0)
-        # add data source (without upload !!!)
-        payload = {
-            "title": "new file",
-            "description": "a new file for training",
-            "file_path": "a",
-            "file_size": 1,
-            "file_name": "train.txt",
-        }
-        file_source = self.request(
-            "post",
-            "/api/v1/{0}/{1}/file_sources".format(self.org1, self.project["id"]),
-            payload,
-            self.token,
-            201,
-        )
-        self.assertEqual(file_source["title"], payload["title"])
-
-        file_sources = self.request(
-            "get",
-            "/api/v1/{0}/{1}/file_sources".format(self.org1, self.project["id"]),
-            {},
-            self.token,
-            200,
-        )
-        self.assertEqual(len(file_sources), 1)
-
     def test_upload_and_api_create(self):
         # first we need to upload data file (create a data source)
         r = requests.get(
@@ -60,33 +24,30 @@ class TestFileDataSource(TestBase):
             ),
             headers=self.headers,
         )
-        destination = r.json()["destination"]
+        absolute_path = r.json()["absolute_path"]
+        relative_dir = r.json()["relative_dir"]
         filename = r.json()["filename"]
 
         path = "/tmp/test_file.txt"
-        file_size = os.path.getsize(path)  # in bytes
         f = open(path, "w")
         for i in range(1):
             f.write("1,1,1,1,1\n")
         f.close()
+        file_size = os.path.getsize(path)  # in bytes
         with open(path, "rb") as fin:
             r = requests.put(
                 "{0}/api/v1/{1}/{2}/{3}/upload".format(
-                    self.get_server_url(), self.org1, destination, filename
+                    self.get_server_url(), self.org1, relative_dir, filename
                 ),
                 data=fin.read(),
                 headers=self.headers,
             )
             self.assertEqual(r.status_code, 201)
         # add data source with uploaded file destination
-        print("destination", destination)
-        print("filename", filename)
-
-        # add data source
         payload = {
             "title": "new file",
             "description": "a new file for training",
-            "file_path": destination,
+            "absolute_path": absolute_path,
             "file_size": file_size,
             "file_name": filename,
         }
@@ -98,11 +59,3 @@ class TestFileDataSource(TestBase):
             201,
         )
         self.assertEqual(file_source["title"], payload["title"])
-
-    """
-    def test_delete(self):
-        pass
-
-    def test_edit(self):
-        pass
-    """

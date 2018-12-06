@@ -1,6 +1,21 @@
 # celery -A consumer worker --loglevel=info -E
+# celery -A worker.consumer worker --loglevel=info -E
+
 import os
 import sys
+
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# create a file handler
+# handler = logging.FileHandler("mljar-backend-worker.log")
+# handler.setLevel(logging.DEBUG)
+# formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+# handler.setFormatter(formatter)
+# logger.addHandler(handler)
+
 
 import time
 from celery import Celery
@@ -13,9 +28,8 @@ WORKERS.config_from_object("worker.celeryconfig")
 BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SERVER_DIR = os.path.join(BACKEND_DIR, "server")
 sys.path.insert(0, SERVER_DIR)
-
 sys.path.insert(0, os.path.join(SERVER_DIR, "apps"))
-print(sys.path)
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
 import django
 
@@ -23,11 +37,11 @@ django.setup()
 
 from worker.etl.process_uploaded_file import ProcessUploadedFile
 
+
 class ReadUploadedFileTask(Task):
     def run(self, *args, **kwargs):
-        print("ReadUploadedFileTask")
+        logger.info("ReadUploadedFileTask, args:{0}".format(args))
         params = args[0]
-        print(params)
         ProcessUploadedFile(params).run()
 
 

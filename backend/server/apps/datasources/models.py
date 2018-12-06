@@ -14,7 +14,7 @@ class FileDataSource(models.Model):
     title = models.TextField()
     description = models.TextField(blank=True, null=True)
 
-    storage_full_path = models.CharField(max_length=1024)  # full file path in storage
+    absolute_path = models.CharField(max_length=1024)
     file_name = models.CharField(max_length=256)  # file name from upload
     file_size = models.DecimalField(decimal_places=2, max_digits=10)  # in MB
 
@@ -25,12 +25,15 @@ class FileDataSource(models.Model):
     parent_organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     parent_project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
-    # data_frame = models.ForeignKey(DataFrame, on_delete=models.CASCADE)
-
 
 class DataFrame(models.Model):
 
-    storage_full_path = models.CharField(max_length=1024)  # file path in storage
+    source = models.ForeignKey(FileDataSource, on_delete=models.CASCADE)
+
+    absolute_path = models.CharField(max_length=1024)  # file path in storage
+    file_size = models.DecimalField(decimal_places=2, max_digits=10)  # in MB
+
+    columns_details = JSONField(blank=True, null=True)
 
     created_at = AutoCreatedField()
     updated_at = AutoLastModifiedField()

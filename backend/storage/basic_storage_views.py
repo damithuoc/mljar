@@ -14,14 +14,11 @@ class FileUploadView(views.APIView):
     parser_classes = (FileUploadParser,)
     permission_classes = (IsAuthenticatedAndFromOrganization,)
 
-    def put(self, request, organization_slug, destination, filename, format=None):
+    def put(self, request, organization_slug, relative_dir, filename, format=None):
         file_obj = request.data["file"]
-        print("FileUploadView put", filename)
-        print("obj", file_obj.size / 1024 / 1024, type(file_obj))
-
         storage = Storage()
-        path = storage.get_path(destination, filename)
-        with open(path, "wb+") as fout:
+        absolute_path = storage.get_path(relative_dir, filename)
+        with open(absolute_path, "wb+") as fout:
             for chunk in file_obj.chunks():
                 fout.write(chunk)
 
@@ -33,9 +30,17 @@ class FileUploadDestinationView(views.APIView):
 
     def get(self, request, organization_slug, project_id, filename, format=None):
 
-        destination = "org_{0}_proj_{1}".format(organization_slug, project_id)
         filename = "input-{0}-{1}".format(filename, str(uuid.uuid4())[:8])
+        relative_dir = "org_{0}_proj_{1}".format(organization_slug, project_id)
+        relative_path = os.path.join(relative_dir, filename)
+        absolute_path = Storage().get_path(relative_dir, filename)
 
         return Response(
-            {"destination": destination, "filename": filename, "storage_type": "basic"}
+            {
+                "filename": filename,
+                "relative_dir": relative_dir,
+                "relative_path": relative_path,
+                "absolute_path": absolute_path,
+                "storage_type": "basic",
+            }
         )

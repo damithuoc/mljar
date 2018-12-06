@@ -21,7 +21,7 @@ class TestBasicUpload(TestBase):
             ),
             headers=headers,
         )
-        destination = r.json()["destination"]
+        relative_dir = r.json()["relative_dir"]
         filename = r.json()["filename"]
 
         path = "/tmp/test_file.txt"
@@ -32,7 +32,7 @@ class TestBasicUpload(TestBase):
         with open(path, "rb") as fin:
             r = requests.put(
                 "{0}/api/v1/{1}/{2}/{3}/upload".format(
-                    self.get_server_url(), self.org1, destination, filename
+                    self.get_server_url(), self.org1, relative_dir, filename
                 ),
                 data=fin.read(),
                 headers=headers,

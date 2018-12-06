@@ -1,13 +1,18 @@
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger("urllib3").setLevel(logging.ERROR)
 import unittest
 
 # they should work like charm :)
 # REST API tests
-# from test_accounts import TestAccounts
-# from test_projects import TestProjects
-# from test_basic_upload import TestBasicUpload
-#from tests_api.test_file_data_source import TestFileDataSource
-# from test_mlexperiment import TestMLExperiment
-# from test_mlmodel import TestMLModel
+from tests_api.test_accounts import TestAccounts
+from tests_api.test_projects import TestProjects
+from tests_api.test_basic_upload import TestBasicUpload
+from tests_api.test_file_data_source import TestFileDataSource
+
+from tests_api.test_mlexperiment import TestMLExperiment
+from tests_api.test_mlmodel import TestMLModel
 
 # worker tests
 from tests.tests_worker.test_process_uploaded_file import TestProcessUploadedFile
