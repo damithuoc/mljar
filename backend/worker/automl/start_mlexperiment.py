@@ -12,13 +12,18 @@ logger = logging.getLogger(__name__)
 from apps.datasources.models import DataFrame
 from apps.ml.models import MLExperiment, MLModel
 
-from worker.consumer_train import TrainMLModelTask
 
 from django.db import transaction
 
+
 def submit_models_for_training(jobs_params):
+    from worker.consumer import TrainMLModelTask
+
     for job_params in jobs_params:
         TrainMLModelTask.delay(job_params)
+        print(job_params)
+        print("------")
+
 
 class StartMLExperiment:
     def __init__(self, params):
@@ -32,7 +37,7 @@ class StartMLExperiment:
             self.job_params.get("parent_project_id"),
             self.job_params.get("db_id"),
         )
-        for p,v in model_params.items():
+        for p, v in model_params.items():
             key += "-{0}-{1}".format(p, v)
         return key
 
@@ -55,16 +60,15 @@ class StartMLExperiment:
                 model_key = self.params_to_key(model_params)
                 print(model_key)
 
-
                 mlmodel = MLModel(
-                    model_type = model_type,
-                    model_key = model_key,
-                    params = model_params,
-                    training_details = {},
-                    created_by_id = self.job_params["created_by_id"],
+                    model_type=model_type,
+                    model_key=model_key,
+                    params=model_params,
+                    training_details={},
+                    created_by_id=self.job_params["created_by_id"],
                     parent_organization_id=self.job_params["parent_organization_id"],
                     parent_project_id=self.job_params["parent_project_id"],
-                    parent_experiment_id=self.job_params["db_id"]
+                    parent_experiment_id=self.job_params["db_id"],
                 )
                 mlmodel.save()
                 print("mlmodel", mlmodel.id, mlmodel.status)
