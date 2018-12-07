@@ -2,6 +2,8 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 logging.getLogger("urllib3").setLevel(logging.ERROR)
+logging.getLogger("amqp").setLevel(logging.ERROR)
+
 import unittest
 
 # they should work like charm :)

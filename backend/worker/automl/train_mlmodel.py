@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import logging
 import numpy as np
 import pandas as pd
@@ -14,6 +15,8 @@ from apps.ml.models import MLExperiment
 from apps.ml.models import MLModel
 
 
+from supervised.iterative_learner_framework import IterativeLearner
+
 class TrainMLModel:
     def __init__(self, params):
         self.job_params = params
@@ -24,3 +27,5 @@ class TrainMLModel:
         mlmodel = MLModel.objects.get(pk=self.job_params.get("db_id"))
         mlmodel.status = "started"
         mlmodel.save()
+        mlexperiment = MLExperiment.objects.get(pk=mlmodel.parent_experiment_id)
+        print("mlexperiment", mlexperiment.id)

@@ -17,13 +17,10 @@ from django.db import transaction
 
 
 def submit_models_for_training(jobs_params):
+    logger.info("Submit models for training, jobs_params: {0}".format(jobs_params))
     from worker.consumer import TrainMLModelTask
-
     for job_params in jobs_params:
         TrainMLModelTask.delay(job_params)
-        print(job_params)
-        print("------")
-
 
 class StartMLExperiment:
     def __init__(self, params):
@@ -51,15 +48,15 @@ class StartMLExperiment:
             mlexperiment.save()
             # define models
             for i in range(3):
-                model_type = "Xgboost"
+                # prepare parameters
+                model_type = "Xgboost" # run with xgboost for now
                 model_params = {
                     "objective": "binary:logistic",
                     "eval_metric": "logloss",
                     "eta": 0.01 * ((i + 1) * 5),
                 }
                 model_key = self.params_to_key(model_params)
-                print(model_key)
-
+                # save in DB
                 mlmodel = MLModel(
                     model_type=model_type,
                     model_key=model_key,
@@ -71,9 +68,8 @@ class StartMLExperiment:
                     parent_experiment_id=self.job_params["db_id"],
                 )
                 mlmodel.save()
-                print("mlmodel", mlmodel.id, mlmodel.status)
-
+                # save ml model id as job_param
                 jobs_params += [{"db_id": mlmodel.id}]
 
-            print(jobs_params)
+            # all all new models into the queue
             transaction.on_commit(lambda: submit_models_for_training(jobs_params))
