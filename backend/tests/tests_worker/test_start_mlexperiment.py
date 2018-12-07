@@ -82,7 +82,16 @@ class TestStartMLExperiment(TestBase):
         mlexperiment = MLExperiment(
             title="exp 1",
             description="na na ...",
-            params={},
+            params={
+                "data_usage": {"train_absolute_path": mljar_df.absolute_path},
+                "metric": {"optimize": "logloss", "monitor": ["logloss", "auc"]},
+                "validation": {
+                    "validation_type": "split",
+                    "train_ratio": 0.5,
+                    "shuffle": True,
+                },
+                "preprocessing": {},
+            },
             column_usage={
                 "target": ["target"],
                 "input": ["feature_{0}".format(i) for i in range(4)],

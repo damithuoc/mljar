@@ -14,6 +14,11 @@ class MLExperiment(models.Model):
     title = models.TextField()
     description = models.TextField(blank=True, null=True)
 
+    # params must have:
+    # - data_usage
+    # - metric to be optimized
+    # - validation
+    #
     params = JSONField(blank=True, null=True)
     column_usage = JSONField(blank=True, null=True)
 

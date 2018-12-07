@@ -19,8 +19,10 @@ from django.db import transaction
 def submit_models_for_training(jobs_params):
     logger.info("Submit models for training, jobs_params: {0}".format(jobs_params))
     from worker.consumer import TrainMLModelTask
+
     for job_params in jobs_params:
         TrainMLModelTask.delay(job_params)
+
 
 class StartMLExperiment:
     def __init__(self, params):
@@ -49,7 +51,7 @@ class StartMLExperiment:
             # define models
             for i in range(3):
                 # prepare parameters
-                model_type = "Xgboost" # run with xgboost for now
+                model_type = "Xgboost"  # run with xgboost for now
                 model_params = {
                     "objective": "binary:logistic",
                     "eval_metric": "logloss",
