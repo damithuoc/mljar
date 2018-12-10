@@ -50,6 +50,7 @@ class MLModelSerializer(serializers.ModelSerializer):
             "training_details",
             "training_time",
             "metric",
+            "selected",
             "status",
             "task_id",
         )

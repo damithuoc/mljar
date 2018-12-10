@@ -114,3 +114,8 @@ class TestStartMLExperiment(TestBase):
         automl.run()
         mlexperiment = MLExperiment.objects.get(pk=mlexperiment.id)
         print(mlexperiment.status)
+        time.sleep(1.5)
+        mlexperiment = MLExperiment.objects.get(pk=mlexperiment.id)
+        print(mlexperiment.status)
+
+        self.assertEqual(mlexperiment.status, "done")

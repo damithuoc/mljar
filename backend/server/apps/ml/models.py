@@ -65,6 +65,7 @@ class MLModel(models.Model):
     )  # ml model training details, for example the learning curves
     training_time = models.IntegerField(blank=True, null=True)  # in seconds
     metric = JSONField(blank=True, null=True)  # metric
+    selected = models.BooleanField(default=False, blank=True, null=True)  # in seconds
 
     statuses = (
         ("created", "Created"),
