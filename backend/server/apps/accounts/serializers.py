@@ -14,14 +14,25 @@ from djoser.conf import settings
 User = get_user_model()
 from apps.accounts.models import Organization
 from apps.accounts.models import Membership
+from apps.accounts.models import MljarUser
 
 from django.template.defaultfilters import slugify
-
 
 class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
         fields = ("id", "name", "slug")
+
+class MljarUserSerializer(serializers.ModelSerializer):
+
+    organizations = OrganizationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = MljarUser
+        fields = ("username", "email", "organizations")
+        read_only_fields = ("username", "email", "organizations")
+
+
 
 
 class MljarUserCreateSerializer(serializers.ModelSerializer):

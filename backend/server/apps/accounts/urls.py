@@ -11,9 +11,10 @@ from djoser.views import (
     PasswordResetView,
     PasswordResetConfirmView,
     UserDeleteView,
+    UserView
 )
 from rest_framework.routers import DefaultRouter
-from accounts.views import MljarUserOrganizationList
+from apps.accounts.views import MljarUserOrganizationList
 
 User = get_user_model()
 
@@ -32,6 +33,7 @@ urlpatterns = [
         name="password_reset_confirm",
     ),
     url(r"^api/v1/users/auth/", include("djoser.urls.authtoken")),
+    url(r'^api/v1/users/me/?$', UserView.as_view(), name='user'),
     url(
         r"^api/v1/users/organization/?$",
         MljarUserOrganizationList.as_view(),

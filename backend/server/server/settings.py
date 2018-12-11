@@ -72,7 +72,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "accounts.MljarUser"
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 REST_FRAMEWORK = {
-    "Default_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    #"DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
     ),
@@ -82,7 +82,10 @@ DJOSER = {
     "PASSWORD_RESET_CONFIRM_URL": "/password/reset/confirm/{uid}/{token}",
     "ACTIVATION_URL": "/activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": False,
-    "SERIALIZERS": {"user_create": "accounts.serializers.MljarUserCreateSerializer"},
+    "SERIALIZERS": {
+        "user_create": "apps.accounts.serializers.MljarUserCreateSerializer",
+        "user": "apps.accounts.serializers.MljarUserSerializer"
+    },
 }
 
 PROTOCOL = "https"

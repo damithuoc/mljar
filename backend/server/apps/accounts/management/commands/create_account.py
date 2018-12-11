@@ -3,8 +3,8 @@ import json
 import six
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from accounts.models import MljarUser
-from accounts.serializers import MljarUserCreateSerializer
+from apps.accounts.models import MljarUser
+from apps.accounts.serializers import MljarUserCreateSerializer
 from rest_framework.serializers import ValidationError
 
 
@@ -45,3 +45,7 @@ class Command(BaseCommand):
         if not MljarUser.objects.all().exists():
             print("Please set up your account in your own MLJAR installation.")
             success = self.create_account()
+        else:
+            print("There is already user created.")
+            for user in MljarUser.objects.all():
+                print("User:", user.email)
