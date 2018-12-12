@@ -33,9 +33,9 @@ class App extends Component {
             <Route path="/login" component={SignIn} />
             <Route path="/logout" component={LogoutView} />
 
-            <Route path="/" component={requireAuthentication(Projects)} />
+            <Route exact path="/" component={requireAuthentication(Projects)} />
             <Route path="/projects/" component={requireAuthentication(Projects)} />
-            
+
             <Route path="*" component={NotFoundView}/>
           </Switch>
           <FooterMain />

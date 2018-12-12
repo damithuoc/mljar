@@ -17,9 +17,10 @@ export const signInUser = (userData, redirectTo) => dispatch => {
 				// Set token to Auth header
 				setAuthToken(key);
 				// Set current user
-				dispatch(setCurrentUser());
+				dispatch(setCurrentUser(redirectTo));
 				console.log("dispatch, log,", redirectTo);
-				dispatch(push(redirectTo));
+
+				//dispatch(push("/organization"));
 			})
 			.catch(err => {
 					console.log("error", err.response.data);
@@ -31,8 +32,7 @@ export const signInUser = (userData, redirectTo) => dispatch => {
 			);
 };
 
-export const setCurrentUser = () => dispatch => {
-	console.log('setCurrentUser');
+export const setCurrentUser = redirectTo => dispatch => {
 	axios.get('/api/v1/users/me/')
 		.then(res => {
 			  console.log("set user", res.data["username"]);
@@ -40,6 +40,7 @@ export const setCurrentUser = () => dispatch => {
 					type: SET_CURRENT_USER,
 					payload: res.data
 				})
+				dispatch(push(redirectTo))
 			}
 		)
 		.catch(err =>
@@ -66,5 +67,5 @@ export const signOutUser = () => dispatch => {
 	// Set current user to {} which will set isAuthenticated to false
 	dispatch(unsetCurrentUser());
 
-	dispatch(push("/logout"));
+	dispatch(push("/login"));
 }
