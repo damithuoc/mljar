@@ -29,11 +29,10 @@ class App extends Component {
     			<div className="App">
 	    			<NavbarMain />
 	    			<PrivateRoute exact path="/" component={ Projects }/>
-            <PrivateRoute exact path="/projects" component={ Projects } />
-            <Route exact path="/sign-in" component={ SignIn } />
-            <Route exact path="/sign-out" component={ SignIn } />
-
-            <FooterMain />
+                    <PrivateRoute exact path="/projects" component={ Projects } />
+                    <Route exact path="/sign-in" component={ SignIn } />
+                    <Route exact path="/sign-out" component={ SignIn } />
+                    <FooterMain />
     			</div>
 	      </Router>
       </Root>

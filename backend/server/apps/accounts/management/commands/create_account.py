@@ -18,12 +18,12 @@ class Command(BaseCommand):
             username = "piotr" #input()
             print(username)
             print("What is your email?")
-            email = "pitorek@piotrek.pl"  #input()
+            email = "piotrek@piotrek.pl"  #input()
             print(email)
             print("Please set password")
             pswd = "verysecret" #getpass.getpass("Password:")
             print("I know,", pswd)
-            
+
             payload = {
                 "email": email,
                 "username": username,

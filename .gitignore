@@ -1,4 +1,6 @@
 dump.rdb
+client/node_modules/
+client/package-lock.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

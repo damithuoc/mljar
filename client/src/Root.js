@@ -7,13 +7,16 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser } from './actions/authActions';
 
-import rootReducer from './reducers';
+import { rootReducer } from './reducers';
+
+import { createBrowserHistory } from 'history'
 
 export default({ children, initialState={} }) => {
 	const middleware = [thunk];
+	const history = createBrowserHistory()
 
 	const store = createStore(
-		rootReducer,
+		rootReducer(history),
 		initialState,
 		composeWithDevTools(
 			applyMiddleware(...middleware),
@@ -29,7 +32,7 @@ export default({ children, initialState={} }) => {
 	}
 
 	return(
-		<Provider store={store}>
+		<Provider store={store} history={history}>
 			{children}
 		</Provider>
 	);
