@@ -31,20 +31,21 @@ class App extends Component {
     return (
     	<Root>
     			<div className="App">
-          <NavbarMain />
-          <Switch>
-            <Route path="/login" component={SignIn} />
-            <Route path="/logout" component={LogoutView} />
+            <NavbarMain />
+            <Switch>
+              <Route path="/login" component={SignIn} />
+              <Route path="/logout" component={LogoutView} />
 
-            <Route exact path="/" component={requireAuthentication(Projects)} />
-            <Route exact path="/projects/" component={requireAuthentication(Projects)} />
-            <Route exact path="/project/:id/" component={ProjectView} />
+              <Route exact path="/" component={requireAuthentication(Projects)} />
+              <Route exact path="/projects/" component={requireAuthentication(Projects)} />
+              <Route exact path="/project/:id/" component={ProjectView} />
 
-            <Route path="/projects/add/" component={ AddProjectView } />
-            <Route path="*" component={NotFoundView}/>
-          </Switch>
-          <FooterMain />
-    			</div>
+              <Route path="/projects/add/" component={ AddProjectView } />
+              <Route path="*" component={NotFoundView}/>
+            </Switch>
+
+              <FooterMain />
+            </div>
 	    </Root>
     );
   }

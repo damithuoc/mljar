@@ -7,6 +7,9 @@ import PropTypes from 'prop-types';
 import { getProjects } from '../../actions/projectsActions';
 //import { getCompletedTask } from '../../actions/tasksActions';
 //import { deleteTask } from '../../actions/tasksActions';
+import SplitPane from 'react-split-pane'
+import SplitterLayout from 'react-splitter-layout';
+import { Container, Row, Col } from 'reactstrap';
 
 class ProjectView extends Component {
 
@@ -19,8 +22,15 @@ class ProjectView extends Component {
 	}
 
 	render() {
+		console.log("id", this.props.id);
 		return(
-			<div><h1>Project details</h1></div>
+			<div>
+				<SplitterLayout vertical percentage secondaryInitialSize={80} primaryMinSize={15}>
+	        <div>Pane 1</div>
+	        <div>Pane 2</div>
+	      </SplitterLayout>
+			</div>
+
 		)
 	}
 }
