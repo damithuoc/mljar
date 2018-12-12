@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import isEmpty from '../../validation/isEmpty';
+import { Label } from 'reactstrap';
 
 const TextFieldGroup = ({
 	name,
@@ -17,7 +18,8 @@ const TextFieldGroup = ({
 }) => {
 	return (
 		<div className="form-group">
-      <input 
+		 <Label >{placeholder}</Label>
+      <input
       	type={type}
       	className={classnames('form-control form-control-lg', {
       		'is-invalid': !isEmpty(error)
