@@ -15,12 +15,15 @@ class Command(BaseCommand):
         try:
             print("-" * 70)
             print("What is your username?")
-            username = input()
+            username = "piotr" #input()
+            print(username)
             print("What is your email?")
-            email = input()
+            email = "pitorek@piotrek.pl"  #input()
+            print(email)
             print("Please set password")
-            pswd = getpass.getpass("Password:")
-
+            pswd = "verysecret" #getpass.getpass("Password:")
+            print("I know,", pswd)
+            
             payload = {
                 "email": email,
                 "username": username,
