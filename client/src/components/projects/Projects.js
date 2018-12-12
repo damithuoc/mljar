@@ -67,7 +67,7 @@ class Projects extends Component {
 					</div>
 
 					<div className="col-md-2">
-						<Link to="#" className="btn btn-primary mt-2 btn-block">Add project</Link>
+						<Link to="/projects/add/" className="btn btn-primary mt-2 btn-block">Add project</Link>
 					</div>
 
 				</div>

@@ -11,6 +11,7 @@ import NotFoundView from './components/common/NotFound.js'
 import SignIn from './components/auth/SignIn';
 import LogoutView from './components/auth/Logout.js';
 import Projects from './components/projects/Projects';
+import AddProjectView from './components/projects/AddProjectView.js';
 //import AddProject from './components/tasks/AddProject';
 
 import requireAuthentication from './utils/requireAuthentication';
@@ -34,8 +35,8 @@ class App extends Component {
             <Route path="/logout" component={LogoutView} />
 
             <Route exact path="/" component={requireAuthentication(Projects)} />
-            <Route path="/projects/" component={requireAuthentication(Projects)} />
-
+            <Route exact path="/projects/" component={requireAuthentication(Projects)} />
+            <Route path="/projects/add/" component={ AddProjectView } />
             <Route path="*" component={NotFoundView}/>
           </Switch>
           <FooterMain />

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { PROJECTS_LOADING, GET_PROJECTS } from './types';
-
+import { PROJECTS_LOADING, GET_PROJECTS, GET_ERRORS } from './types';
+import { push } from 'connected-react-router';
 
 //let apiUrl;
 //(process.env.REACT_APP_API_URL!==undefined) ? apiUrl=process.env.REACT_APP_API_URL : apiUrl=""
@@ -30,4 +30,17 @@ export const setProjectsLoading = () => {
 	return {
 		type: PROJECTS_LOADING
 	}
+}
+
+// Add project
+export const addProject = projectData => dispatch => {
+	axios
+		.post(`/api/v1/personal/projects`, projectData)
+		.then(res => dispatch(push('/projects')))
+		.catch(err =>
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			})
+		);
 }

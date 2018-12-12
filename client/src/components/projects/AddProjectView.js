@@ -7,15 +7,16 @@ import isEmpty from '../../validation/isEmpty';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
-import { addTask } from '../../actions/tasksActions';
+import { addProject } from '../../actions/projectsActions';
 
-class AddTask extends Component {
+class AddProjectView extends Component {
 	constructor(props) {
+		console.log("AddProjectView");
 		super(props);
 		this.state = {
 			params: {},
-			arg1: '',
-			arg2: '',
+			title: '',
+			description: '',
 			errors: {
 				params: {}
 			}
@@ -26,9 +27,6 @@ class AddTask extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if(!isEmpty(nextProps.errors)) {
-			//console.log('nextProps errors');
-			//console.log(nextProps.errors);
-			//console.log('-----------------');
 			this.setState({ errors: nextProps.errors })
 		}
 	}
@@ -36,15 +34,12 @@ class AddTask extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 
-		const arg1 = (this.state.arg1) ? {"arg1": parseInt(this.state.arg1)} : {};
-		const arg2 = (this.state.arg2) ? {"arg2": parseInt(this.state.arg2)} : {};
-		let params;
-		params = Object.assign(arg1, arg2);
-
-		const taskData = {
-			params: params
+		const projectData = {
+			"title": this.state.title,
+			"description": this.state.description
 		}
-		this.props.addTask(taskData, this.props.history)
+		console.log("onSubmit projectData", projectData);
+		this.props.addProject(projectData);
 	}
 
 	onChange(e) {
@@ -53,45 +48,43 @@ class AddTask extends Component {
 
 	render() {
 		const { errors } = this.state;
-		
+
 		return(
 			<div className="container">
-				<h1>Add task</h1>
+				<h1>Add new project</h1>
 				<hr/>
 				{('non_field_errors' in errors) && <div className="badge badge-danger mb-3">{errors.non_field_errors}</div>}
 
 				<form onSubmit={this.onSubmit}>
 					<TextFieldGroup
-						placeholder="arg1"
-						name="arg1"
-						value={this.state.arg1}
+						placeholder="Project title"
+						name="title"
+						value={this.state.title}
 						onChange={this.onChange}
 						error={ ('params' in errors) ? errors.params.arg1 : [] }
 					/>
 					<TextFieldGroup
-						placeholder="arg2"
-						name="arg2"
-						value={this.state.arg2}
+						placeholder="Description, what is your goal?"
+						name="description"
+						value={this.state.description}
 						onChange={this.onChange}
 						error={ ('params' in errors) ? errors.params.arg2 : [] }
 					/>
 					<input type="submit" value="Submit" className="btn btn-info mt-2" />
-					<Link to="/tasks" className="btn btn-default mt-2">Back</Link>
+					<Link to="/projects" className="btn btn-default mt-2">Back</Link>
 				</form>
 			</div>
 		)
 	}
 }
 
-AddTask.propTypes = {
-	addTask: PropTypes.func.isRequired,
-	tasks: PropTypes.object.isRequired,
+AddProjectView.propTypes = {
+	addProject: PropTypes.func.isRequired,
 	errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-	tasks: state.tasks,
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { addTask })(withRouter(AddTask));
+export default connect(mapStateToProps, { addProject })(withRouter(AddProjectView));

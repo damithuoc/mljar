@@ -54,7 +54,7 @@ class NavbarMain extends React.Component {
       <Nav className="ml-auto" navbar>
         <NavItem>
           <Link to="/logout/" className="nav-link" onClick={this.onLogoutClick.bind(this)}>
-            Sign Out ({user.username})
+            Logout [{user.username}]
           </Link>
         </NavItem>
       </Nav>
