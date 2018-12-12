@@ -5,17 +5,26 @@ import { signInUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class SignIn extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
+
+		const redirectRoute = this.props.location ? this.extractRedirect(this.props.location.search) || '/' : '/';
+		console.log("redirect", redirectRoute);
 		this.state = {
 			email: '',
 			password: '',
-			errors: {}
+			errors: {},
+			redirectTo: "/projects" //redirectRoute
 		};
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
+
+	extractRedirect = (string) => {
+			const match = string.match(/next=(.*)/);
+			return match ? match[1] : '/';
+	};
 
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.errors) {
@@ -36,7 +45,7 @@ class SignIn extends Component {
 			password: this.state.password
 		}
 
-		this.props.signInUser(userData);
+		this.props.signInUser(userData, this.state.redirectTo);
 
 	}
 
@@ -85,7 +94,10 @@ class SignIn extends Component {
 
 SignIn.propTypes = {
 	signInUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
+	auth: PropTypes.object.isRequired,
+	location: PropTypes.shape({
+			search: PropTypes.string.isRequired
+	})
 };
 
 const mapStateToProps = (state, ownProps) => ({

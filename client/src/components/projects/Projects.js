@@ -11,7 +11,7 @@ import { getProjects } from '../../actions/projectsActions';
 class Projects extends Component {
 
 	componentDidMount() {
-		
+
 		this.props.getProjects()
 	}
 	componentDidUpdate(prevProps) {
@@ -63,7 +63,7 @@ class Projects extends Component {
 			<div className="container">
 				<div className="row">
 					<div className="col-md-10">
-						<h1>Projects</h1>
+						<h1>Projects {this.props.auth.organization.name}</h1>
 					</div>
 
 					<div className="col-md-2">
@@ -82,11 +82,13 @@ Projects.propTypes = {
 	getProjects: PropTypes.func.isRequired,
 	//getCompletedTask: PropTypes.func.isRequired,
 	//deleteTask: PropTypes.func.isRequired,
-	projects: PropTypes.object.isRequired
+	projects: PropTypes.object.isRequired,
+	auth: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => ({
-	projects: state.projects
+const mapStateToProps = (state, ownProps) => ({
+	projects: state.projects,
+	auth: state.auth
 });
 
 export default connect(mapStateToProps, { getProjects })(withRouter(Projects));

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
-
+import { push } from 'connected-react-router';
 import { GET_ERRORS, SET_CURRENT_USER, UNSET_CURRENT_USER } from './types';
 
 
 // Sign In User
-export const signInUser = (userData) => dispatch => {
-	console.log("SignIn ACTION", userData);
+export const signInUser = (userData, redirectTo) => dispatch => {
+	console.log("SignIn ACTION", userData, "redirect", redirectTo);
 	setAuthToken("");
 	axios.post('/api/v1/users/auth/token/login', userData)
 			.then(res => {
@@ -18,6 +18,7 @@ export const signInUser = (userData) => dispatch => {
 				setAuthToken(key);
 				// Set current user
 				dispatch(setCurrentUser());
+				dispatch(push(redirectTo));
 			})
 			.catch(err => {
 					console.log("error", err.response.data);
@@ -30,6 +31,7 @@ export const signInUser = (userData) => dispatch => {
 };
 
 export const setCurrentUser = () => dispatch => {
+	console.log('setCurrentUser');
 	axios.get('/api/v1/users/me/')
 		.then(res => {
 			  console.log("set user", res.data["username"]);
