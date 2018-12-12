@@ -45,7 +45,7 @@ class NavbarMain extends React.Component {
     const guestLinks = (
       <Nav className="ml-auto" navbar>
         <NavItem>
-          <Link to="/sign-in/" className="nav-link">Sign In</Link>
+          <Link to="/login/" className="nav-link">Sign In</Link>
         </NavItem>
       </Nav>
     );
@@ -53,7 +53,7 @@ class NavbarMain extends React.Component {
     const authLinks = (
       <Nav className="ml-auto" navbar>
         <NavItem>
-          <Link to="/sign-out/" className="nav-link" onClick={this.onLogoutClick.bind(this)}>
+          <Link to="/logout/" className="nav-link" onClick={this.onLogoutClick.bind(this)}>
             Sign Out ({user.username})
           </Link>
         </NavItem>

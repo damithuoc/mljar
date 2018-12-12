@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 //import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Route, Switch } from 'react-router'
-//import PrivateRoute from './utils/PrivateRoute.js'
 import axios from 'axios';
 
 import Root from './Root';
@@ -10,9 +9,11 @@ import FooterMain from './components/layout/FooterMain.js';
 import NotFoundView from './components/common/NotFound.js'
 //import Home from './components/Home';
 import SignIn from './components/auth/SignIn';
+import LogoutView from './components/auth/Logout.js';
 import Projects from './components/projects/Projects';
 //import AddProject from './components/tasks/AddProject';
 
+import requireAuthentication from './utils/requireAuthentication';
 //import store from './store';
 
 import './App.css';
@@ -29,8 +30,12 @@ class App extends Component {
     			<div className="App">
           <NavbarMain />
           <Switch>
-            <Route exact path="/" component={SignIn} />
-            <Route exact path="/projects" component={Projects} />
+            <Route path="/login" component={SignIn} />
+            <Route path="/logout" component={LogoutView} />
+
+            <Route path="/" component={requireAuthentication(Projects)} />
+            <Route path="/projects/" component={requireAuthentication(Projects)} />
+            
             <Route path="*" component={NotFoundView}/>
           </Switch>
           <FooterMain />

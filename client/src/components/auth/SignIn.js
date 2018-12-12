@@ -9,12 +9,12 @@ class SignIn extends Component {
 		super(props);
 
 		const redirectRoute = this.props.location ? this.extractRedirect(this.props.location.search) || '/' : '/';
-		console.log("redirect", redirectRoute);
+		console.log("Component c-tor redirect", redirectRoute);
 		this.state = {
 			email: '',
 			password: '',
 			errors: {},
-			redirectTo: "/projects" //redirectRoute
+			redirectTo: redirectRoute
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -45,6 +45,7 @@ class SignIn extends Component {
 			password: this.state.password
 		}
 
+		console.log("onSubmit", this.state.redirectTo);
 		this.props.signInUser(userData, this.state.redirectTo);
 
 	}

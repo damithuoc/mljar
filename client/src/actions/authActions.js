@@ -18,6 +18,7 @@ export const signInUser = (userData, redirectTo) => dispatch => {
 				setAuthToken(key);
 				// Set current user
 				dispatch(setCurrentUser());
+				console.log("dispatch, log,", redirectTo);
 				dispatch(push(redirectTo));
 			})
 			.catch(err => {
@@ -64,4 +65,6 @@ export const signOutUser = () => dispatch => {
 	setAuthToken(false);
 	// Set current user to {} which will set isAuthenticated to false
 	dispatch(unsetCurrentUser());
+
+	dispatch(push("/logout"));
 }
