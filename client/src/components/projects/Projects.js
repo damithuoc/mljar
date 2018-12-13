@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { getProjects, openProject } from '../../actions/projectsActions';
 //import { getCompletedTask } from '../../actions/tasksActions';
 //import { deleteTask } from '../../actions/tasksActions';
+import moment from 'moment';
 
 class Projects extends Component {
 
@@ -35,9 +36,15 @@ class Projects extends Component {
 						<div className="border-bottom" key={project.id}>
 							<div className="row mt-3 mb-3">
 								<div className="col-md-8">
-									<b>Id:</b> {project.id} <br/>
-									<b>Title:</b> {project.title} <br/>
+
+									<h3>{project.title} <br/></h3>
 									<b>Description:</b> {project.description} <br/>
+									<b>Created at:</b> {moment(project.created_at).format('MMMM Do YYYY, h:mm:ss a')} <br/>
+									<b>Last update at:</b> {moment(project.updated_at).fromNow()} <br/>
+									<b>Created by:</b> {project.created_by_username} <br/>
+									(Id: {project.id})<br/>
+
+
 								</div>
 
 								<div className="col-md-1">
