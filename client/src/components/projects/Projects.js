@@ -37,10 +37,10 @@ class Projects extends Component {
 							<div className="row mt-3 mb-3">
 								<div className="col-md-8">
 
-									<h3>{project.title} <br/></h3>
+									<h3>Project: {project.title} <br/></h3>
 									<b>Description:</b> {project.description} <br/>
 									<b>Created at:</b> {moment(project.created_at).format('MMMM Do YYYY, h:mm:ss a')} <br/>
-									<b>Last update at:</b> {moment(project.updated_at).fromNow()} <br/>
+									<b>Last update:</b> {moment(project.updated_at).fromNow()} <br/>
 									<b>Created by:</b> {project.created_by_username} <br/>
 									(Id: {project.id})<br/>
 

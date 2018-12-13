@@ -10,10 +10,11 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   font-size: 12px;
+  text-align: center;
   /* Set the fixed height of the footer here */
   height: 30px;
   line-height: 30px; /* Vertically center the text there */
@@ -29,10 +30,6 @@ body > .container {
   padding: 60px 15px 0;
 }
 
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
-}
 
 code {
   font-size: 80%;

@@ -40,7 +40,11 @@ export const setCurrentUser = redirectTo => dispatch => {
 					type: SET_CURRENT_USER,
 					payload: res.data
 				})
-				dispatch(push(redirectTo))
+				console.log("going to redirect", redirectTo, typeof redirectTo, redirectTo === "")
+				if (redirectTo !== "") {
+					console.log("redirect");
+					dispatch(push(redirectTo));
+				}
 			}
 		)
 		.catch(err =>

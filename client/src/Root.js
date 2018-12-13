@@ -35,7 +35,7 @@ export default({ children, initialState={} }) => {
 	  // Set auth token header auth
 	  setAuthToken(localStorage.authTokenKey);
 	  // Set user and isAuthenticated
-	  store.dispatch(setCurrentUser(localStorage.authTokenKey));
+	  store.dispatch(setCurrentUser(""));
 	}
 
 	return(

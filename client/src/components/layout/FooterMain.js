@@ -9,11 +9,11 @@ class FooterMain extends React.Component {
   render() {
     return (
       <footer className="footer">
-        <div className="container-fluid">
+
           <div className="text-muted">
             MLJAR v0.0.1 - Turn Data into Knowledge
           </div>
-        </div>
+        
       </footer>
     );
   }
