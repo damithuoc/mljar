@@ -1,12 +1,7 @@
 import axios from "axios";
 import setAxiosAuthToken from "../utils/setAxiosAuthToken";
 import { push } from "connected-react-router";
-import {
-  GET_ERRORS,
-  SET_CURRENT_USER,
-  UNSET_CURRENT_USER,
-  AUTH_LOGIN_USER_SUCCESS
-} from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, UNSET_CURRENT_USER } from "./types";
 
 // Sign In User
 export const signInUser = (userData, redirectTo) => dispatch => {
@@ -20,7 +15,6 @@ export const signInUser = (userData, redirectTo) => dispatch => {
       dispatch(getCurrentUser(redirectTo));
     })
     .catch(err => {
-      console.log("error", err.response.data);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -29,8 +23,6 @@ export const signInUser = (userData, redirectTo) => dispatch => {
 };
 
 export const setCurrentUser = (user, organization, redirectTo) => dispatch => {
-  console.log("setCurrentUser");
-
   localStorage.setItem("user", JSON.stringify(user));
   localStorage.setItem("organization", JSON.stringify(organization));
   dispatch({
@@ -42,22 +34,18 @@ export const setCurrentUser = (user, organization, redirectTo) => dispatch => {
   });
 
   if (redirectTo !== "") {
-    console.log("redirect");
     dispatch(push(redirectTo));
   }
 };
 
 export const getCurrentUser = redirectTo => dispatch => {
-  console.log("getCurrentUser");
   axios
     .get("/api/v1/users/me/")
     .then(res => {
-      console.log(res.data, "get");
       const user = {
         username: res.data["username"],
         email: res.data["email"]
       };
-      console.log("user", user, res.data["organizations"][0], redirectTo);
       dispatch(setCurrentUser(user, res.data["organizations"][0], redirectTo));
     })
     .catch(err =>
