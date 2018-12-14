@@ -9,6 +9,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 
 //import { addProject } from '../../actions/projectsActions';
 import { Label } from "reactstrap";
+import { getUploadDestination } from "../../actions/fileUploadActions.js";
 
 class AddDataSourceView extends Component {
   constructor(props) {
@@ -50,7 +51,15 @@ class AddDataSourceView extends Component {
     //  title: this.state.title,
     //  description: this.state.description
     //};
-    console.log("onSubmit get upload destination", this.state.file_name);
+    const selectedFile = e.target.file_name.files[0];
+    console.log("Selected File", selectedFile, selectedFile.name);
+    console.log("onSubmit get upload destination", selectedFile.name);
+
+    this.props.getUploadDestination(
+      this.props.auth.organization.slug,
+      this.props.projectDetail.projectDetail.id,
+      selectedFile.name
+    );
     //this.props.addProject(projectData);
   }
 
@@ -62,7 +71,7 @@ class AddDataSourceView extends Component {
     const { errors } = this.state;
 
     const { projectDetail } = this.props.projectDetail;
-    console.log("render", projectDetail, isEmpty(projectDetail));
+    //console.log("render", projectDetail, isEmpty(projectDetail));
     if (isEmpty(projectDetail)) {
       return (
         <div>
@@ -76,7 +85,10 @@ class AddDataSourceView extends Component {
       );
     }
     const link_back = "/project/" + projectDetail.id;
-    console.log(link_back, "back");
+
+    console.log(this.props.fileUpload.destination);
+    console.log(this.props.fileUpload.destination.absolute_path);
+
     return (
       <div className="container">
         <h1>Add data source</h1>
@@ -88,6 +100,7 @@ class AddDataSourceView extends Component {
         )}
 
         <p>Data upload from CSV file</p>
+
         <form onSubmit={this.onSubmit}>
           <TextFieldGroup
             placeholder="Data source name"
@@ -104,18 +117,9 @@ class AddDataSourceView extends Component {
             error={"params" in errors ? errors.params.arg2 : []}
           />
           <Label>Please choose a file</Label>
-          <div class="custom-file">
-            <input
-              type="file"
-              class="custom-file-input"
-              name="file_name"
-              placeholder="Please selected a CSV file"
-              onChange={this.onChange}
-            />
-            <label class="custom-file-label" for="customFile">
-              Choose file
-            </label>
-          </div>
+
+          <input type="file" name="file_name" id="" onChange={this.onChange} />
+
           <div> Upload progress: {Math.round(this.state.loaded, 2)} %</div>
           {this.state.uploadStatusMsg ? (
             <p>{this.state.uploadStatusMsg}</p>
@@ -136,16 +140,19 @@ AddDataSourceView.propTypes = {
   //addProject: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   projectDetail: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  fileUpload: PropTypes.object.isRequired,
+  getUploadDestination: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   errors: state.errors,
   auth: state.auth,
-  projectDetail: state.projectDetail
+  projectDetail: state.projectDetail,
+  fileUpload: state.fileUpload
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  { getUploadDestination }
 )(withRouter(AddDataSourceView));
