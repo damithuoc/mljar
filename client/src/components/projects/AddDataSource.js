@@ -19,6 +19,7 @@ class AddDataSourceView extends Component {
       title: "",
       description: "",
       file_name: "",
+      uploadStatusMsg: "",
       loaded: 0,
       errors: {
         params: {}
@@ -45,11 +46,11 @@ class AddDataSourceView extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const projectData = {
-      title: this.state.title,
-      description: this.state.description
-    };
-    console.log("onSubmit data source", projectData);
+    //const projectData = {
+    //  title: this.state.title,
+    //  description: this.state.description
+    //};
+    console.log("onSubmit get upload destination", this.state.file_name);
     //this.props.addProject(projectData);
   }
 
@@ -116,6 +117,11 @@ class AddDataSourceView extends Component {
             </label>
           </div>
           <div> Upload progress: {Math.round(this.state.loaded, 2)} %</div>
+          {this.state.uploadStatusMsg ? (
+            <p>{this.state.uploadStatusMsg}</p>
+          ) : (
+            <p>Nothing yet</p>
+          )}
           <input type="submit" value="Submit" className="btn btn-info mt-2" />
           <Link to={link_back} className="btn btn-default mt-2">
             Back
