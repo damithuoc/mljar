@@ -12,6 +12,7 @@ import moment from 'moment';
 class Projects extends Component {
 
 	componentDidMount() {
+		console.log("Projects did mount", this.props.auth);
 		this.props.getProjects()
 	}
 	componentDidUpdate(prevProps) {
