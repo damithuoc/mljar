@@ -1,22 +1,23 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import { signOutUser } from '../../actions/authActions';
+import { signOutUser } from "../../actions/authActions";
 
+import isEmpty from "../../validation/isEmpty";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   Nav,
-  NavItem,
+  NavItem
   //NavLink,
   //UncontrolledDropdown,
   //DropdownToggle,
   //DropdownMenu,
   //DropdownItem
-} from 'reactstrap';
+} from "reactstrap";
 
 class NavbarMain extends React.Component {
   constructor(props) {
@@ -39,13 +40,14 @@ class NavbarMain extends React.Component {
   }
 
   render() {
-
     const { isAuthenticated, user } = this.props.auth;
 
     const guestLinks = (
       <Nav className="ml-auto" navbar>
         <NavItem>
-          <Link to="/login/" className="nav-link">Sign In</Link>
+          <Link to="/login/" className="nav-link">
+            Sign In
+          </Link>
         </NavItem>
       </Nav>
     );
@@ -53,25 +55,44 @@ class NavbarMain extends React.Component {
     const authLinks = (
       <Nav className="ml-auto" navbar>
         <NavItem>
-          <Link to="/logout/" className="nav-link" onClick={this.onLogoutClick.bind(this)}>
+          <Link
+            to="/logout/"
+            className="nav-link"
+            onClick={this.onLogoutClick.bind(this)}
+          >
             Logout [{user.username}]
           </Link>
         </NavItem>
       </Nav>
-    )
+    );
+
+    const project_link = isEmpty(this.props.projectDetail.projectDetail)
+      ? false
+      : "/project/" + this.props.projectDetail.projectDetail.id;
 
     return (
       <Navbar color="light" light expand="md" className="mb-3">
-
-        <Link to="/" className="navbar-brand">MLJAR</Link>
+        <Link to="/" className="navbar-brand">
+          MLJAR
+        </Link>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link to="/projects/" className="nav-link">Projects</Link>
+              <Link to="/projects/" className="nav-link">
+                Projects
+              </Link>
             </NavItem>
+
+            {project_link && (
+              <NavItem>
+                <Link to={project_link} className="nav-link">
+                  Current: {this.props.projectDetail.projectDetail.title}
+                </Link>
+              </NavItem>
+            )}
           </Nav>
-          { isAuthenticated ? authLinks : guestLinks }
+          {isAuthenticated ? authLinks : guestLinks}
         </Collapse>
       </Navbar>
     );
@@ -79,11 +100,16 @@ class NavbarMain extends React.Component {
 }
 
 NavbarMain.propTypes = {
-  auth: PropTypes.object.isRequired
-}
+  auth: PropTypes.object.isRequired,
+  projectDetail: PropTypes.object.isRequired
+};
 
 const mapStateToProps = (state, ownProps) => ({
-  auth: state.auth
-})
+  auth: state.auth,
+  projectDetail: state.projectDetail
+});
 
-export default connect(mapStateToProps, { signOutUser })(NavbarMain);
+export default connect(
+  mapStateToProps,
+  { signOutUser }
+)(NavbarMain);

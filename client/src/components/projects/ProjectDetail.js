@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { getProjectDetail } from "../../actions/projectDetailActions";
 import SplitterLayout from "react-splitter-layout";
 //import { Container, Row, Col } from "reactstrap";
+import moment from "moment";
 
 class ProjectView extends Component {
   componentDidMount() {
@@ -24,28 +25,67 @@ class ProjectView extends Component {
     const { projectDetail } = this.props.projectDetail;
     const { user } = this.props.auth;
     return (
-      <div>
-        <SplitterLayout
-          vertical
-          percentage
-          secondaryInitialSize={80}
-          primaryMinSize={15}
-        >
-          <div>{user.username}</div>
-          <div>
-            <h3>
-              Project {projectDetail.title} (id: {projectDetail.id})
-            </h3>
-            <div className="col-md-2">
-              <Link
-                to="/datasources/add/"
-                className="btn btn-primary mt-2 btn-block"
-              >
-                Add data source
-              </Link>
-            </div>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <h4>Project {projectDetail.title}</h4>
+            <p>{projectDetail.description}</p>
+            <Link to="/flow/" className="btn btn-primary mt-2">
+              Open FLOW
+            </Link>
           </div>
-        </SplitterLayout>
+          <div className="col">
+            {" "}
+            <small>
+              Created at:{" "}
+              {moment(projectDetail.created_at).format(
+                "MMMM Do YYYY, h:mm:ss a"
+              )}{" "}
+              by {projectDetail.created_by_username}
+              <br />
+              Last update:{moment(projectDetail.updated_at).fromNow()}{" "}
+            </small>
+          </div>
+        </div>
+        <hr />
+        <div className="row">
+          <div className="col-3">
+            <h5>Data sources</h5>
+            <h2>{projectDetail.datasources_cnt}</h2>
+            <Link to="/datasources/">List</Link> |{" "}
+            <Link to="/datasources/add/">Add new</Link>
+            <br />
+            <br />
+          </div>
+          <div className="col-3">
+            <h5>Data frames</h5>
+            <h2>{projectDetail.dataframes_cnt}</h2>
+            <Link to="/dataframes/">List</Link>
+          </div>
+
+          <div className="col-3">
+            <h5>ML experiments</h5>
+          </div>
+          <div className="col-3">
+            <h5>ML models</h5>
+          </div>
+          <div className="col-3">
+            <h5>Predictions</h5>
+            Comming soon!
+          </div>
+          <div className="col-3">
+            <h5>Charts</h5>
+            Comming soon!
+          </div>
+          <div className="col-3">
+            <h5>Dashboards</h5>
+            Comming soon!
+          </div>
+          <div className="col-3">
+            <h5>Jobs</h5>
+            Comming soon!
+          </div>
+        </div>
       </div>
     );
   }
