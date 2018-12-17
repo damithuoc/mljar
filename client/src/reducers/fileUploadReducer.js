@@ -1,4 +1,9 @@
-import { GET_UPLOAD_DESTINATION } from "../actions/types";
+import {
+  GET_UPLOAD_DESTINATION,
+  UPLOAD_SUCCESS,
+  UPLOAD_ERROR,
+  ADD_FILE_DATASOURCE_ERROR
+} from "../actions/types";
 
 const initialState = {
   destination: {},
@@ -11,8 +16,26 @@ export default function(state = initialState, action) {
       return {
         ...state,
         destination: action.payload,
-        status: "Upload destination ready"
+        status: action.status
       };
+    case UPLOAD_SUCCESS:
+      return {
+        ...state,
+        status: action.status
+      };
+
+    case UPLOAD_ERROR:
+      return {
+        ...state,
+        status: action.status
+      };
+
+    case ADD_FILE_DATASOURCE_ERROR:
+      return {
+        ...state,
+        status: action.status
+      };
+
     default:
       return state;
   }

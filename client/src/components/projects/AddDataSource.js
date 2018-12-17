@@ -9,7 +9,10 @@ import TextFieldGroup from "../common/TextFieldGroup";
 
 //import { addProject } from '../../actions/projectsActions';
 import { Label } from "reactstrap";
-import { getUploadDestination } from "../../actions/fileUploadActions.js";
+import {
+  getUploadDestination,
+  upload
+} from "../../actions/fileUploadActions.js";
 
 class AddDataSourceView extends Component {
   constructor(props) {
@@ -55,11 +58,20 @@ class AddDataSourceView extends Component {
     console.log("Selected File", selectedFile, selectedFile.name);
     console.log("onSubmit get upload destination", selectedFile.name);
 
+    const newFileDataSource = {
+      title: this.state.title,
+      description: this.state.description,
+      file_name: selectedFile.name
+    };
     this.props.getUploadDestination(
       this.props.auth.organization.slug,
       this.props.projectDetail.projectDetail.id,
-      selectedFile.name
+      selectedFile,
+      newFileDataSource
     );
+    // var data = new FormData();
+    //    data.append('file', selectedFile);
+    //    console.log('Form Data', data);
     //this.props.addProject(projectData);
   }
 
@@ -71,7 +83,7 @@ class AddDataSourceView extends Component {
     const { errors } = this.state;
 
     const { projectDetail } = this.props.projectDetail;
-    //console.log("render", projectDetail, isEmpty(projectDetail));
+
     if (isEmpty(projectDetail)) {
       return (
         <div>
@@ -88,6 +100,10 @@ class AddDataSourceView extends Component {
 
     console.log(this.props.fileUpload.destination);
     console.log(this.props.fileUpload.destination.absolute_path);
+    const { destination } = this.props.fileUpload;
+
+    console.log(">>>render", destination);
+    //console.log(">>>render", fileUpload.destination);
 
     return (
       <div className="container">
@@ -124,7 +140,7 @@ class AddDataSourceView extends Component {
           {this.state.uploadStatusMsg ? (
             <p>{this.state.uploadStatusMsg}</p>
           ) : (
-            <p>Nothing yet</p>
+            <p>{this.props.fileUpload.status}</p>
           )}
           <input type="submit" value="Submit" className="btn btn-info mt-2" />
           <Link to={link_back} className="btn btn-default mt-2">
