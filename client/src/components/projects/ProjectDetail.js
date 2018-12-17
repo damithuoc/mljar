@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { getProjectDetail } from "../../actions/projectDetailActions";
-import SplitterLayout from "react-splitter-layout";
-//import { Container, Row, Col } from "reactstrap";
 import moment from "moment";
 
 class ProjectView extends Component {
@@ -23,7 +21,7 @@ class ProjectView extends Component {
 
   render() {
     const { projectDetail } = this.props.projectDetail;
-    const { user } = this.props.auth;
+
     return (
       <div className="container-fluid">
         <div className="row">
@@ -52,8 +50,10 @@ class ProjectView extends Component {
           <div className="col-3">
             <h5>Data sources</h5>
             <h2>{projectDetail.datasources_cnt}</h2>
-            <Link to="/datasources/">List</Link> |{" "}
-            <Link to="/datasources/add/">Add new</Link>
+            <Link to={"/project/" + projectDetail.id + "/datasources/"}>
+              List
+            </Link>{" "}
+            | <Link to="/datasources/add/">Add new</Link>
             <br />
             <br />
           </div>
@@ -71,19 +71,27 @@ class ProjectView extends Component {
           </div>
           <div className="col-3">
             <h5>Predictions</h5>
-            Comming soon!
+            Coming soon!
           </div>
           <div className="col-3">
             <h5>Charts</h5>
-            Comming soon!
+            Coming soon!
           </div>
           <div className="col-3">
             <h5>Dashboards</h5>
-            Comming soon!
+            Coming soon!
           </div>
           <div className="col-3">
             <h5>Jobs</h5>
-            Comming soon!
+            Coming soon!
+          </div>
+        </div>
+        <br />
+        <hr />
+        <div className="row">
+          <div className="col-3">
+            <h5>Latest activity</h5>
+            Coming soon!
           </div>
         </div>
       </div>

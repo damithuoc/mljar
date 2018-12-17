@@ -14,6 +14,7 @@ import Projects from "./components/projects/Projects";
 import ProjectDetail from "./components/projects/ProjectDetail.js";
 
 import AddProject from "./components/projects/AddProject.js";
+import DataSources from "./components/projects/DataSources.js";
 import AddDataSource from "./components/projects/AddDataSource.js";
 
 //import AddProject from './components/tasks/AddProject';
@@ -55,6 +56,11 @@ class App extends Component {
             <Route
               path="/datasources/add/"
               component={requireAuthentication(AddDataSource)}
+            />
+
+            <Route
+              path="/project/:project_id/datasources/"
+              component={requireAuthentication(DataSources)}
             />
 
             <Route path="*" component={NotFoundView} />

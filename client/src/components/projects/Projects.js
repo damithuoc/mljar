@@ -25,7 +25,7 @@ class Projects extends Component {
     let projectsItems;
 
     if (projects === null || loading) {
-      projectsItems = <div>Loading projects...</div>;
+      projectsItems = <div>Loading projects ...</div>;
     } else {
       if (projects.length > 0) {
         projectsItems = projects.map(project => {
@@ -43,7 +43,8 @@ class Projects extends Component {
                   <b>Last update:</b> {moment(project.updated_at).fromNow()}{" "}
                   <br />
                   <b>Created by:</b> {project.created_by_username} <br />
-                  (Id: {project.id})<br />
+                  <small>(Id: {project.id})</small>
+                  <br />
                 </div>
 
                 <div className="col-3">

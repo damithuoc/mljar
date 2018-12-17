@@ -6,13 +6,8 @@ import PropTypes from "prop-types";
 import isEmpty from "../../validation/isEmpty";
 
 import TextFieldGroup from "../common/TextFieldGroup";
-
-//import { addProject } from '../../actions/projectsActions';
 import { Label } from "reactstrap";
-import {
-  getUploadDestination,
-  upload
-} from "../../actions/fileUploadActions.js";
+import { getUploadDestination } from "../../actions/fileUploadActions.js";
 
 class AddDataSourceView extends Component {
   constructor(props) {

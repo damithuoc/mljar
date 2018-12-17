@@ -5,6 +5,7 @@ import errorsReducer from "./errorsReducer";
 import projectsReducer from "./projectsReducer";
 import projectDetailReducer from "./projectDetailReducer";
 import fileUploadReducer from "./fileUploadReducer";
+import datasourcesReducer from "./datasourcesReducer";
 
 export default history =>
   combineReducers({
@@ -13,5 +14,6 @@ export default history =>
     errors: errorsReducer,
     projects: projectsReducer,
     projectDetail: projectDetailReducer,
-    fileUpload: fileUploadReducer
+    fileUpload: fileUploadReducer,
+    datasources: datasourcesReducer
   });

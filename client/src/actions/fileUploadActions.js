@@ -38,7 +38,7 @@ export const getUploadDestination = (
       newFileDataSource["absolute_path"] = absolute_path;
       newFileDataSource["file_size"] = Math.round(
         form_input_file.size / 1024 / 1024,
-        2
+        4
       ); // in MB
 
       dispatch(
@@ -103,12 +103,13 @@ export const addFileDataSource = (
       `/api/v1/${organization_slug}/${project_id}/file_sources`,
       newFileDataSource
     )
-    .then(res =>
+    .then(res => {
       dispatch({
         type: UPLOAD_SUCCESS,
         status: "File data source added"
-      })
-    )
+      });
+      dispatch(push("/project/" + project_id));
+    })
     .catch(error => {
       // Error
       if (error.response) {
@@ -141,20 +142,3 @@ export const addFileDataSource = (
       console.log(error.config);
     });
 };
-
-/*
-payload = {
-    "title": "new file",
-    "description": "a new file for training",
-    "absolute_path": absolute_path,
-    "file_size": file_size,
-    "file_name": filename,
-}
-file_source = self.request(
-    "post",
-    "/api/v1/{0}/{1}/file_sources".format(self.org1, self.project["id"]),
-    payload,
-    self.token,
-    201,
-)
-self.assertEqual(file_source["title"], payload["title"])*/
