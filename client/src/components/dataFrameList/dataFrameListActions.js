@@ -17,7 +17,7 @@ export const getDataFrames = (organization_slug, project_id) => dispatch => {
       })
     )
     .catch(error => {
-      let error_message = "Error while fetching data frames. ";
+      let error_message = "Error while fetching DataFrames. ";
 
       if (error.response) {
         error_message += error.response.data;

@@ -22,7 +22,7 @@ router.register(
 urlpatterns = [
     url(r"^api/v1/", include(router.urls)),
     url(
-        r"^api/v1/(?P<organization_slug>.+)/(?P<project_id>.+)/frame_preview/(?P<dataframe_id>.+)",
+        r"^api/v1/(?P<organization_slug>.+)/(?P<project_id>.+)/dataframe_preview/(?P<dataframe_id>.+)",
         GetDataFramePreview.as_view(),
         name="frame_preview",
     ),

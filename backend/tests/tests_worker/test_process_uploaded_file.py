@@ -79,7 +79,7 @@ class TestProcessUploadedFile(TestBase):
 
         preview = self.request(
             method="get",
-            endpoint="/api/v1/{0}/{1}/frame_preview/{2}".format(
+            endpoint="/api/v1/{0}/{1}/dataframe_preview/{2}".format(
                 self.org1, project.id, dataframe.id
             ),
             payload={},

@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { getDataFrames } from "./dataFrameActions";
+import { getDataFrames } from "./dataFrameListActions";
 import moment from "moment";
 
 class DataFrameList extends Component {
