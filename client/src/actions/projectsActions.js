@@ -45,7 +45,7 @@ export const addProject = projectData => dispatch => {
 };
 
 // Add project
-export const openProject = project_id => dispatch => {
+export const openProject = (organization_slug, project_id) => dispatch => {
   console.log("openProject action", project_id);
-  dispatch(push("/project/" + project_id));
+  dispatch(push("/" + organization_slug + "/project/" + project_id));
 };

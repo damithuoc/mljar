@@ -41,7 +41,7 @@ class NavbarMain extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated, user, organization } = this.props.auth;
 
     const guestLinks = (
       <Nav className="ml-auto" navbar>
@@ -79,11 +79,18 @@ class NavbarMain extends React.Component {
 
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link to="/projects/" className="nav-link">
-                Projects
-              </Link>
-            </NavItem>
+            {isAuthenticated ? (
+              <NavItem>
+                <Link
+                  to={organization.slug + "/projects/"}
+                  className="nav-link"
+                >
+                  Projects {organization.slug}
+                </Link>
+              </NavItem>
+            ) : (
+              " "
+            )}
 
             {project_link && (
               <NavItem>

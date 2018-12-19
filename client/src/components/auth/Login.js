@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 import { signInUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 
-class SignIn extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
     const redirectRoute = this.props.location
       ? this.extractRedirect(this.props.location.search) || "/"
       : "/";
-    console.log("Component c-tor redirect", redirectRoute);
+
     this.state = {
       email: "",
       password: "",
@@ -100,7 +100,7 @@ class SignIn extends Component {
   }
 }
 
-SignIn.propTypes = {
+Login.propTypes = {
   signInUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   location: PropTypes.shape({
@@ -116,4 +116,4 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
   mapStateToProps,
   { signInUser }
-)(SignIn);
+)(Login);

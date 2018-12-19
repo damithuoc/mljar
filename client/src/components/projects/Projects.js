@@ -16,8 +16,9 @@ class Projects extends Component {
   }
   componentDidUpdate(prevProps) {}
   onOpenProject(id) {
+    const { organization } = this.props.auth;
     console.log("open project", id);
-    this.props.openProject(id);
+    this.props.openProject(organization.slug, id);
   }
 
   render() {
