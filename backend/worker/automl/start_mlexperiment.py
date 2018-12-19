@@ -17,8 +17,13 @@ from django.db import transaction
 
 from celery import chord, group
 
+
 def submit_models_for_training(experiment_id, train_models_jobs_params):
-    logger.info("Submit models for training, train_models_jobs_params: {0}".format(train_models_jobs_params))
+    logger.info(
+        "Submit models for training, train_models_jobs_params: {0}".format(
+            train_models_jobs_params
+        )
+    )
     from worker.consumer import TrainMLModelTask
     from worker.consumer import FinishMLExperimentTask
 
@@ -27,6 +32,7 @@ def submit_models_for_training(experiment_id, train_models_jobs_params):
         tasks += [TrainMLModelTask.s(job_params)]
     print(tasks)
     chord(tasks)(FinishMLExperimentTask.s({"db_id": experiment_id}))
+
 
 class StartMLExperiment:
     def __init__(self, params):
@@ -78,4 +84,8 @@ class StartMLExperiment:
                 train_models_jobs_params += [{"db_id": mlmodel.id}]
 
             # all all new models into the queue
-            transaction.on_commit(lambda: submit_models_for_training(self.job_params["db_id"], train_models_jobs_params))
+            transaction.on_commit(
+                lambda: submit_models_for_training(
+                    self.job_params["db_id"], train_models_jobs_params
+                )
+            )

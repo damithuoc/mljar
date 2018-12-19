@@ -18,10 +18,12 @@ from apps.accounts.models import MljarUser
 
 from django.template.defaultfilters import slugify
 
+
 class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
         fields = ("id", "name", "slug")
+
 
 class MljarUserSerializer(serializers.ModelSerializer):
 
@@ -31,8 +33,6 @@ class MljarUserSerializer(serializers.ModelSerializer):
         model = MljarUser
         fields = ("username", "email", "organizations")
         read_only_fields = ("username", "email", "organizations")
-
-
 
 
 class MljarUserCreateSerializer(serializers.ModelSerializer):

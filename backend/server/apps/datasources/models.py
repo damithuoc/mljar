@@ -34,6 +34,9 @@ class DataFrame(models.Model):
     file_size = models.DecimalField(decimal_places=2, max_digits=10)  # in MB
 
     columns_details = JSONField(blank=True, null=True)
+    preview_absolute_path = models.CharField(
+        max_length=1024
+    )  # file path in storage with JSON preview data
 
     created_at = AutoCreatedField()
     updated_at = AutoLastModifiedField()

@@ -37,12 +37,12 @@ class TestBase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    org1 = "big-co"  # slug for organization #1
+    org1 = "personal"  # slug for organization #1
     user1_params = {
         "username": "piotrek",
         "email": "piotrek@piotrek.pl",
         "password": "verysecret",
-        "organization": "big co",
+        "organization": "personal",
     }
     org2 = "big-co2"  # slug for organization #2
     user2_params = {
@@ -80,7 +80,7 @@ class TestBase(unittest.TestCase):
         else:
             r = requests.get(self.get_server_url() + endpoint, headers=headers)
         if r.status_code != expected_status_code:
-            print(r.text)
+            print(r.status_code, r.text)
         self.assertEqual(r.status_code, expected_status_code)
         if expected_status_code in [200, 201]:
             return r.json()

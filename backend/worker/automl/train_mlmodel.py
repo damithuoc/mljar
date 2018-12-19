@@ -20,6 +20,7 @@ from supervised.iterative_learner_framework import IterativeLearner
 from supervised.callbacks.early_stopping import EarlyStopping
 from supervised.callbacks.metric_logger import MetricLogger
 
+
 class TrainMLModel:
     def __init__(self, params):
         self.job_params = params

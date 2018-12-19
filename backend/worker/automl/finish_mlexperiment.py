@@ -25,7 +25,11 @@ class FinishMLExperiment:
 
         with transaction.atomic():
             # update status
-            logger.info("FinishMLExperiment set status done: MLExperiment{0}".format(self.job_params.get("db_id")))
+            logger.info(
+                "FinishMLExperiment set status done: MLExperiment{0}".format(
+                    self.job_params.get("db_id")
+                )
+            )
             mlexperiment = MLExperiment.objects.get(pk=self.job_params.get("db_id"))
             mlexperiment.status = "done"
             mlexperiment.save()

@@ -7,6 +7,8 @@ import projectDetailReducer from "./projectDetailReducer";
 import fileUploadReducer from "./fileUploadReducer";
 import datasourcesReducer from "./datasourcesReducer";
 
+import dataFrameListReducer from "../components/dataFrameList/dataFrameListReducer";
+
 export default history =>
   combineReducers({
     router: connectRouter(history),
@@ -15,5 +17,6 @@ export default history =>
     projects: projectsReducer,
     projectDetail: projectDetailReducer,
     fileUpload: fileUploadReducer,
-    datasources: datasourcesReducer
+    datasources: datasourcesReducer,
+    dataFrameList: dataFrameListReducer
   });

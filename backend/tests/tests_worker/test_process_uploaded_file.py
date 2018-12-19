@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import time
 import unittest
 import requests
@@ -23,7 +24,7 @@ from worker.etl.process_uploaded_file import ProcessUploadedFile
 
 class TestProcessUploadedFile(TestBase):
     def test_preprocess(self):
-
+        # set user
         token = self.create_user_and_login(self.user1_params)
         organization = Organization.objects.get(slug=self.org1)
         user = MljarUser.objects.get(email=self.user1_params["email"])
@@ -64,9 +65,37 @@ class TestProcessUploadedFile(TestBase):
             "parent_organization_id": ds.parent_organization.id,
             "parent_project_id": ds.parent_project.id,
         }
-
         self.assertEqual(DataFrame.objects.all().count(), 0)
+        ########################################################################
+        # run job
+        ########################################################################
         process_file = ProcessUploadedFile(job_params)
         process_file.run()
+        ########################################################################
+        # check if all is good
         self.assertEqual(DataFrame.objects.all().count(), 1)
         self.assertTrue(DataFrame.objects.filter(source_id=ds.id).count(), 1)
+        dataframe = DataFrame.objects.get(source_id=ds.id)
+
+        preview = self.request(
+            method="get",
+            endpoint="/api/v1/{0}/{1}/frame_preview/{2}".format(
+                self.org1, project.id, dataframe.id
+            ),
+            payload={},
+            token=token,
+            expected_status_code=200,
+        )
+        self.assertEqual(len(json.loads(preview.get("preview_data"))), 100)
+        self.assertTrue("columns_description" in preview)
+        self.assertTrue("nrows" in preview)
+        self.assertTrue("ncols" in preview)
+
+        frames = self.request(
+            method="get",
+            endpoint="/api/v1/{0}/{1}/dataframes".format(self.org1, project.id),
+            payload={},
+            token=token,
+            expected_status_code=200,
+        )
+        print(frames)

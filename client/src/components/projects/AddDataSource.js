@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import isEmpty from "../../validation/isEmpty";
 
 import TextFieldGroup from "../common/TextFieldGroup";
-import { Label } from "reactstrap";
+//import { Label } from "react-bootstrap";
 import { getUploadDestination } from "../../actions/fileUploadActions.js";
 
 class AddDataSourceView extends Component {
@@ -127,7 +127,7 @@ class AddDataSourceView extends Component {
             onChange={this.onChange}
             error={"params" in errors ? errors.params.arg2 : []}
           />
-          <Label>Please choose a file</Label>
+          <b>Please choose a file</b>
 
           <input type="file" name="file_name" id="" onChange={this.onChange} />
 

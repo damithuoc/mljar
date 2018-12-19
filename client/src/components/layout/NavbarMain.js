@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import { signOutUser } from "../../actions/authActions";
 
 import isEmpty from "../../validation/isEmpty";
+
 import {
   Collapse,
   Navbar,
-  NavbarToggler,
+  //NavbarToggler,
   Nav,
   NavItem
   //NavLink,
@@ -75,7 +76,7 @@ class NavbarMain extends React.Component {
         <Link to="/" className="navbar-brand">
           MLJAR
         </Link>
-        <NavbarToggler onClick={this.toggle} />
+
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>

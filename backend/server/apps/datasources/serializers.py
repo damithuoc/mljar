@@ -3,7 +3,7 @@ from apps.datasources import models
 
 
 class FileDataSourceSerializer(serializers.ModelSerializer):
-    created_by_username = serializers.ReadOnlyField(source='created_by.username')
+    created_by_username = serializers.ReadOnlyField(source="created_by.username")
 
     class Meta:
         model = models.FileDataSource
@@ -14,7 +14,7 @@ class FileDataSourceSerializer(serializers.ModelSerializer):
             "updated_at",
             "parent_organization",
             "parent_project",
-            "created_by_username"
+            "created_by_username",
         )
         fields = (
             "id",
@@ -28,5 +28,28 @@ class FileDataSourceSerializer(serializers.ModelSerializer):
             "created_by",
             "parent_organization",
             "parent_project",
-            "created_by_username"
+            "created_by_username",
         )
+
+
+class DataFrameSerializer(serializers.ModelSerializer):
+    created_by_username = serializers.ReadOnlyField(source="created_by.username")
+    source_title = serializers.ReadOnlyField(source="source.title")
+
+    class Meta:
+        model = models.DataFrame
+        read_only_fields = (
+            "id",
+            "created_by",
+            "created_at",
+            "updated_at",
+            "parent_organization",
+            "parent_project",
+            "created_by_username",
+            "source",
+            "source_title",
+            "absolute_path",
+            "file_size",
+        )
+
+        fields = read_only_fields

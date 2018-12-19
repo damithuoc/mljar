@@ -4,9 +4,8 @@ from apps.datasources.models import FileDataSource
 from apps.datasources.models import DataFrame
 
 
-
 class ProjectSerializer(serializers.ModelSerializer):
-    created_by_username = serializers.ReadOnlyField(source='created_by.username')
+    created_by_username = serializers.ReadOnlyField(source="created_by.username")
 
     datasources_cnt = serializers.SerializerMethodField(read_only=True)
     dataframes_cnt = serializers.SerializerMethodField(read_only=True)
@@ -16,7 +15,6 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     def get_dataframes_cnt(self, project):
         return DataFrame.objects.filter(parent_project=project).count()
-
 
     class Meta:
         model = models.Project
@@ -28,7 +26,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "parent_organization",
             "created_by_username",
             "datasources_cnt",
-            "dataframes_cnt"
+            "dataframes_cnt",
         )
         fields = (
             "id",
@@ -40,5 +38,5 @@ class ProjectSerializer(serializers.ModelSerializer):
             "parent_organization",
             "created_by_username",
             "datasources_cnt",
-            "dataframes_cnt"
+            "dataframes_cnt",
         )

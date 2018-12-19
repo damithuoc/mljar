@@ -72,10 +72,10 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "accounts.MljarUser"
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 REST_FRAMEWORK = {
-    #"DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
-    ),
+    )
 }
 
 DJOSER = {
@@ -84,7 +84,7 @@ DJOSER = {
     "SEND_ACTIVATION_EMAIL": False,
     "SERIALIZERS": {
         "user_create": "apps.accounts.serializers.MljarUserCreateSerializer",
-        "user": "apps.accounts.serializers.MljarUserSerializer"
+        "user": "apps.accounts.serializers.MljarUserSerializer",
     },
 }
 

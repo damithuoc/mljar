@@ -17,7 +17,9 @@ import AddProject from "./components/projects/AddProject.js";
 import DataSources from "./components/projects/DataSources.js";
 import AddDataSource from "./components/projects/AddDataSource.js";
 
+import DataFrames from "./components/projects/DataFrames.js";
 //import AddProject from './components/tasks/AddProject';
+import DataFrameList from "./components/dataFrameList/dataFrameList.js";
 
 import requireAuthentication from "./utils/requireAuthentication";
 //import store from './store';
@@ -61,6 +63,16 @@ class App extends Component {
             <Route
               path="/project/:project_id/datasources/"
               component={requireAuthentication(DataSources)}
+            />
+
+            <Route
+              path="/:organization_slug/project/:project_id/dataframes/"
+              component={requireAuthentication(DataFrameList)}
+            />
+
+            <Route
+              path="/project/:project_id/frames/"
+              component={requireAuthentication(DataFrames)}
             />
 
             <Route path="*" component={NotFoundView} />
