@@ -8,7 +8,9 @@ import moment from "moment";
 
 class DataFrameList extends Component {
   componentDidMount() {
-    this.props.getDataFrames();
+    const { organization_slug } = this.props.organization_slug;
+    const { project_id } = this.props.project_id;
+    this.props.getDataFrames(organization_slug, project_id);
   }
   componentDidUpdate(prevProps) {}
 
@@ -28,6 +30,7 @@ class DataFrameList extends Component {
                   <h4>
                     DataFrame: {dataframe.id} <br />
                   </h4>
+                  <b>File size:</b> {dataframe.file_size} MB <br />
                   <b>Created at:</b>{" "}
                   {moment(dataframe.created_at).format(
                     "MMMM Do YYYY, h:mm:ss a"

@@ -9,7 +9,7 @@ import {
 export const getDataFrames = (organization_slug, project_id) => dispatch => {
   dispatch(setDataFramesLoading());
   axios
-    .get(`/api/v1/${organization_slug}/${project_id}/file_sources`) //
+    .get(`/api/v1/${organization_slug}/${project_id}/dataframes`)
     .then(response =>
       dispatch({
         type: GET_DATAFRAMES_SUCCESS,
