@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 //import PropTypes from 'prop-types';
 
 class FooterMain extends React.Component {
@@ -9,22 +9,17 @@ class FooterMain extends React.Component {
   render() {
     return (
       <footer className="footer">
-
-          <div className="text-muted">
-            MLJAR v0.0.1 - Turn Data into Knowledge
-          </div>
-        
+        <div className="text-muted">MLJAR v0.0.1 - Use your data!</div>
       </footer>
     );
   }
 }
 
-FooterMain.propTypes = {
+FooterMain.propTypes = {};
 
-}
+const mapStateToProps = state => ({});
 
-const mapStateToProps = (state) => ({
-
-})
-
-export default connect(mapStateToProps, { })(FooterMain);
+export default connect(
+  mapStateToProps,
+  {}
+)(FooterMain);

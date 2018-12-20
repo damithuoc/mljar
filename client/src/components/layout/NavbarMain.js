@@ -69,7 +69,10 @@ class NavbarMain extends React.Component {
 
     const project_link = isEmpty(this.props.projectDetail.projectDetail)
       ? false
-      : "/project/" + this.props.projectDetail.projectDetail.id;
+      : "/" +
+        organization.slug +
+        "/project/" +
+        this.props.projectDetail.projectDetail.id;
 
     return (
       <Navbar color="light" light expand="md" className="mb-3">
@@ -82,7 +85,7 @@ class NavbarMain extends React.Component {
             {isAuthenticated ? (
               <NavItem>
                 <Link
-                  to={organization.slug + "/projects/"}
+                  to={"/" + organization.slug + "/projects/"}
                   className="nav-link"
                 >
                   Projects {organization.slug}
@@ -95,7 +98,9 @@ class NavbarMain extends React.Component {
             {project_link && (
               <NavItem>
                 <Link to={project_link} className="nav-link">
-                  Current: {this.props.projectDetail.projectDetail.title}
+                  <strong>
+                    Current: {this.props.projectDetail.projectDetail.title}
+                  </strong>
                 </Link>
               </NavItem>
             )}

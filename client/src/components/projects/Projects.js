@@ -11,13 +11,11 @@ import moment from "moment";
 
 class Projects extends Component {
   componentDidMount() {
-    console.log("Projects did mount", this.props.auth);
     this.props.getProjects();
   }
   componentDidUpdate(prevProps) {}
   onOpenProject(id) {
     const { organization } = this.props.auth;
-    console.log("open project", id);
     this.props.openProject(organization.slug, id);
   }
 
@@ -77,7 +75,7 @@ class Projects extends Component {
           <div className="col-2">
             <Link
               to="/projects/add/"
-              className="btn btn-primary mt-2 btn-block"
+              className="btn btn-primary btn-lg mt-2 btn-block"
             >
               Add project
             </Link>

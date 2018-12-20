@@ -20,10 +20,11 @@ class ProjectView extends Component {
   }
 
   render() {
+    const { organization } = this.props.auth;
     const { projectDetail } = this.props.projectDetail;
 
     return (
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
           <div className="col">
             <h4>Project {projectDetail.title}</h4>
@@ -32,14 +33,14 @@ class ProjectView extends Component {
               Open FLOW
             </Link>
           </div>
-          <div className="col">
+          <div className="col text-center text-md-right">
             {" "}
             <small>
               Created at:{" "}
               {moment(projectDetail.created_at).format(
                 "MMMM Do YYYY, h:mm:ss a"
               )}{" "}
-              by {projectDetail.created_by_username}
+              by <strong>{projectDetail.created_by_username}</strong>
               <br />
               Last update:{moment(projectDetail.updated_at).fromNow()}{" "}
             </small>
@@ -50,7 +51,15 @@ class ProjectView extends Component {
           <div className="col-3">
             <h5>Data sources</h5>
             <h2>{projectDetail.datasources_cnt}</h2>
-            <Link to={"/project/" + projectDetail.id + "/datasources/"}>
+            <Link
+              to={
+                "/" +
+                organization.slug +
+                "/project/" +
+                projectDetail.id +
+                "/datasources/"
+              }
+            >
               List
             </Link>{" "}
             | <Link to="/datasources/add/">Add new</Link>
@@ -60,7 +69,17 @@ class ProjectView extends Component {
           <div className="col-3">
             <h5>Data frames</h5>
             <h2>{projectDetail.dataframes_cnt}</h2>
-            <Link to="/dataframes/">List</Link>
+            <Link
+              to={
+                "/" +
+                organization.slug +
+                "/project/" +
+                projectDetail.id +
+                "/dataframes/"
+              }
+            >
+              List
+            </Link>
           </div>
 
           <div className="col-3">
@@ -89,7 +108,11 @@ class ProjectView extends Component {
         <br />
         <hr />
         <div className="row">
-          <div className="col-3">
+          <div className="col-6">
+            <h5>Latest alarms</h5>
+            Coming soon!
+          </div>
+          <div className="col-6">
             <h5>Latest activity</h5>
             Coming soon!
           </div>

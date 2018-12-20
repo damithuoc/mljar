@@ -21,6 +21,7 @@ class DataSources extends Component {
   componentDidUpdate(prevProps) {}
 
   render() {
+    const { organization_slug } = this.props.organization_slug;
     const { datasources, loading } = this.props.datasources;
     let items;
 
@@ -77,7 +78,14 @@ class DataSources extends Component {
         <hr />
         {items}
 
-        <Link to={"/project/" + this.props.project_id.project_id}>
+        <Link
+          to={
+            "/" +
+            organization_slug +
+            "/project/" +
+            this.props.project_id.project_id
+          }
+        >
           {"<<"} Back
         </Link>
       </div>
@@ -86,7 +94,8 @@ class DataSources extends Component {
 }
 
 DataSources.propTypes = {
-  project_id: PropTypes.object.isRequired, // id of the project
+  project_id: PropTypes.object.isRequired,
+  organization_slug: PropTypes.object.isRequired,
   getDataSources: PropTypes.func.isRequired,
   datasources: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
@@ -94,6 +103,7 @@ DataSources.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   project_id: ownProps.match.params,
+  organization_slug: ownProps.match.params,
   datasources: state.datasources,
   auth: state.auth
 });

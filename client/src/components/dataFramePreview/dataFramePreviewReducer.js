@@ -5,6 +5,7 @@ import {
 } from "./dataFramePreviewTypes";
 
 const initialState = {
+  source_title: "",
   preview_data: [],
   columns_description: [],
   nrows: null,
@@ -18,6 +19,7 @@ export default function(state = initialState, action) {
     case DATAFRAME_PREVIEW_LOADING:
       return {
         ...state,
+        source_title: "",
         preview_data: [],
         columns_description: [],
         nrows: null,
@@ -28,6 +30,7 @@ export default function(state = initialState, action) {
     case GET_DATAFRAME_PREVIEW_SUCCESS:
       return {
         ...state,
+        source_title: action.payload["source_title"],
         preview_data: JSON.parse(action.payload["preview_data"]),
         columns_description: action.payload["columns_description"],
         nrows: action.payload["nrows"],
@@ -38,6 +41,7 @@ export default function(state = initialState, action) {
     case GET_DATAFRAME_PREVIEW_ERROR:
       return {
         ...state,
+        source_title: "",
         preview_data: [],
         columns_description: [],
         nrows: null,

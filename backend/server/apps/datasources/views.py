@@ -42,6 +42,7 @@ class GetDataFramePreview(APIView):
                 preview_data = fin.read()
             return Response(
                 {
+                    "source_title": dataframe.source.title,
                     "preview_data": preview_data,
                     "columns_description": dataframe.columns_details.get(
                         "columns_description"

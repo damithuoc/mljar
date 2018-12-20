@@ -15,7 +15,9 @@ class DataFrameList extends Component {
   componentDidUpdate(prevProps) {}
 
   render() {
-    const { dataframes, loading, error_message } = this.props.dataFrameList;
+    const { organization_slug } = this.props.organization_slug;
+    const { project_id } = this.props.project_id;
+    const { dataframes, loading } = this.props.dataFrameList;
     let items;
 
     if (loading) {
@@ -44,9 +46,19 @@ class DataFrameList extends Component {
                 </div>
 
                 <div className="col-3">
-                  <button className="btn btn-success btn-sm">
-                    <b>Preview</b>
-                  </button>{" "}
+                  <Link
+                    to={
+                      "/" +
+                      organization_slug +
+                      "/project/" +
+                      project_id +
+                      "/dataframe_preview/" +
+                      dataframe.id
+                    }
+                    className="btn btn-success btn-md float-right"
+                  >
+                    Preview
+                  </Link>{" "}
                 </div>
               </div>
             </div>
@@ -66,6 +78,10 @@ class DataFrameList extends Component {
         </div>
         <hr />
         {items}
+
+        <Link to={"/" + organization_slug + "/project/" + project_id}>
+          {"<<"} Back
+        </Link>
       </div>
     );
   }

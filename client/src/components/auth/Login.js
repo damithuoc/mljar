@@ -47,7 +47,6 @@ class Login extends Component {
       password: this.state.password
     };
 
-    console.log("onSubmit", this.state.redirectTo);
     this.props.signInUser(userData, this.state.redirectTo);
   }
 

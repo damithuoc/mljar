@@ -17,8 +17,6 @@ import AddProject from "./components/projects/AddProject.js";
 import DataSources from "./components/projects/DataSources.js";
 import AddDataSource from "./components/projects/AddDataSource.js";
 
-import DataFrames from "./components/projects/DataFrames.js";
-//import AddProject from './components/tasks/AddProject';
 import DataFrameList from "./components/dataFrameList/dataFrameList.js";
 import DataFramePreview from "./components/dataFramePreview/dataFramePreview.js";
 import requireAuthentication from "./utils/requireAuthentication";
