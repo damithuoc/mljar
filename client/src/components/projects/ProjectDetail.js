@@ -84,6 +84,19 @@ class ProjectView extends Component {
 
           <div className="col-3">
             <h5>ML experiments</h5>
+
+            <h2>{projectDetail.experiments_cnt}</h2>
+            <Link
+              to={
+                "/" +
+                organization.slug +
+                "/project/" +
+                projectDetail.id +
+                "/experiments/"
+              }
+            >
+              List
+            </Link>
           </div>
           <div className="col-3">
             <h5>ML models</h5>

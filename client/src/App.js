@@ -15,10 +15,13 @@ import ProjectDetail from "./components/projects/ProjectDetail.js";
 
 import AddProject from "./components/projects/AddProject.js";
 import DataSources from "./components/projects/DataSources.js";
-import AddDataSource from "./components/projects/AddDataSource.js";
+import AddDataSource from "./components/projects/AddDataSource";
 
-import DataFrameList from "./components/dataFrameList/dataFrameList.js";
-import DataFramePreview from "./components/dataFramePreview/dataFramePreview.js";
+import DataFrameList from "./components/dataFrameList/dataFrameList";
+import DataFramePreview from "./components/dataFramePreview/dataFramePreview";
+
+import ExperimentList from "./components/experimentList/experimentList";
+
 import requireAuthentication from "./utils/requireAuthentication";
 //import store from './store';
 
@@ -70,6 +73,11 @@ class App extends Component {
             <Route
               path="/:organization_slug/project/:project_id/dataframe_preview/:dataframe_id/"
               component={requireAuthentication(DataFramePreview)}
+            />
+
+            <Route
+              path="/:organization_slug/project/:project_id/experiments/"
+              component={requireAuthentication(ExperimentList)}
             />
 
             <Route path="*" component={NotFoundView} />

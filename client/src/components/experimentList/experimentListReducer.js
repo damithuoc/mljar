@@ -10,7 +10,7 @@ const initialState = {
   error_message: ""
 };
 
-export default function(state = initialState, action) {
+export function experimentListReducer(state = initialState, action) {
   switch (action.type) {
     case EXPERIMENTS_LOADING:
       return {

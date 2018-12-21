@@ -9,6 +9,8 @@ import datasourcesReducer from "./datasourcesReducer";
 
 import dataFrameListReducer from "../components/dataFrameList/dataFrameListReducer";
 import dataFramePreviewReducer from "../components/dataFramePreview/dataFramePreviewReducer";
+import { experimentListReducer } from "../components/experimentList/experimentListReducer";
+
 export default history =>
   combineReducers({
     router: connectRouter(history),
@@ -19,5 +21,6 @@ export default history =>
     fileUpload: fileUploadReducer,
     datasources: datasourcesReducer,
     dataFrameList: dataFrameListReducer,
-    dataFramePreview: dataFramePreviewReducer
+    dataFramePreview: dataFramePreviewReducer,
+    experimentList: experimentListReducer
   });
