@@ -10,6 +10,7 @@ import datasourcesReducer from "./datasourcesReducer";
 import dataFrameListReducer from "../components/dataFrameList/dataFrameListReducer";
 import dataFramePreviewReducer from "../components/dataFramePreview/dataFramePreviewReducer";
 import { experimentListReducer } from "../components/experimentList/experimentListReducer";
+import modalReducer from "../components/modals/ModalReducer";
 
 export default history =>
   combineReducers({
@@ -22,5 +23,6 @@ export default history =>
     datasources: datasourcesReducer,
     dataFrameList: dataFrameListReducer,
     dataFramePreview: dataFramePreviewReducer,
-    experimentList: experimentListReducer
+    experimentList: experimentListReducer,
+    modal: modalReducer
   });

@@ -4,9 +4,37 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { getProjectDetail } from "../../actions/projectDetailActions";
+import { showModal, hideModal } from "../modals/ModalActions";
+import ModalRoot from "../modals/ModalRoot";
+
 import moment from "moment";
 
 class ProjectView extends Component {
+  constructor(props) {
+    super(props);
+    this.closeModal = this.closeModal.bind(this);
+    this.openAlertModal = this.openAlertModal.bind(this);
+  }
+
+  closeModal(event) {
+    console.log("hideModal in ProjectDetails");
+    this.props.hideModal();
+  }
+
+  openAlertModal() {
+    console.log("openAlertModal");
+
+    this.props.showModal(
+      {
+        open: true,
+        title: "Alert Modal",
+        message: "Good luck!",
+        closeModal: this.closeModal
+      },
+      "alert"
+    );
+  }
+
   componentDidMount() {
     this.props.getProjectDetail(
       this.props.auth.organization.slug,
@@ -25,6 +53,7 @@ class ProjectView extends Component {
 
     return (
       <div className="container">
+        <ModalRoot />
         <div className="row">
           <div className="col">
             <h4>Project {projectDetail.title}</h4>
@@ -84,7 +113,6 @@ class ProjectView extends Component {
 
           <div className="col-3">
             <h5>ML experiments</h5>
-
             <h2>{projectDetail.experiments_cnt}</h2>
             <Link
               to={
@@ -97,6 +125,12 @@ class ProjectView extends Component {
             >
               List
             </Link>
+            <button
+              className="btn btn-primary btn-block"
+              onClick={this.openAlertModal}
+            >
+              alert
+            </button>{" "}
           </div>
           <div className="col-3">
             <h5>ML models</h5>
@@ -138,6 +172,8 @@ class ProjectView extends Component {
 ProjectView.propTypes = {
   id: PropTypes.object.isRequired, // id of the project
   getProjectDetail: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
   projects: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   projectDetail: PropTypes.object.isRequired
@@ -152,5 +188,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { getProjectDetail }
+  { getProjectDetail, showModal, hideModal }
 )(withRouter(ProjectView));

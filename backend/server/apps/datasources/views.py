@@ -57,7 +57,6 @@ class GetDataFramePreview(APIView):
         except Exception as e:
             return Response(str(e), status=status.HTTP_404_NOT_FOUND)
 
-
 class FileDataSourceViewSet(ModelViewSet):
 
     serializer_class = FileDataSourceSerializer
