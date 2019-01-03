@@ -22,8 +22,9 @@ import DataFramePreview from "./components/dataFramePreview/dataFramePreview";
 
 import ExperimentList from "./components/experimentList/experimentList";
 
+import ProjectFlow from "./components/projectFlow/ProjectFlow";
+
 import requireAuthentication from "./utils/requireAuthentication";
-//import store from './store';
 
 import "./App.css";
 
@@ -36,52 +37,59 @@ class App extends Component {
       <Root>
         <div className="App">
           <NavbarMain />
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={LogoutView} />
+          <div>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={LogoutView} />
 
-            <Route exact path="/" component={Home} />
-            <Route
-              exact
-              path="/:organization_slug/projects/"
-              component={requireAuthentication(Projects)}
-            />
-            <Route
-              exact
-              path="/:organization_slug/project/:id/"
-              component={requireAuthentication(ProjectDetail)}
-            />
+              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/:organization_slug/projects/"
+                component={requireAuthentication(Projects)}
+              />
+              <Route
+                exact
+                path="/:organization_slug/project/:id/"
+                component={requireAuthentication(ProjectDetail)}
+              />
 
-            <Route
-              path="/:organization_slug/projects/add/"
-              component={requireAuthentication(AddProject)}
-            />
-            <Route
-              path="/:organization_slug/datasources/add/"
-              component={requireAuthentication(AddDataSource)}
-            />
+              <Route
+                path="/:organization_slug/projects/add/"
+                component={requireAuthentication(AddProject)}
+              />
+              <Route
+                path="/:organization_slug/datasources/add/"
+                component={requireAuthentication(AddDataSource)}
+              />
 
-            <Route
-              path="/:organization_slug/project/:project_id/datasources/"
-              component={requireAuthentication(DataSources)}
-            />
+              <Route
+                path="/:organization_slug/project/:project_id/flow/"
+                component={requireAuthentication(ProjectFlow)}
+              />
 
-            <Route
-              path="/:organization_slug/project/:project_id/dataframes/"
-              component={requireAuthentication(DataFrameList)}
-            />
-            <Route
-              path="/:organization_slug/project/:project_id/dataframe_preview/:dataframe_id/"
-              component={requireAuthentication(DataFramePreview)}
-            />
+              <Route
+                path="/:organization_slug/project/:project_id/datasources/"
+                component={requireAuthentication(DataSources)}
+              />
 
-            <Route
-              path="/:organization_slug/project/:project_id/experiments/"
-              component={requireAuthentication(ExperimentList)}
-            />
+              <Route
+                path="/:organization_slug/project/:project_id/dataframes/"
+                component={requireAuthentication(DataFrameList)}
+              />
+              <Route
+                path="/:organization_slug/project/:project_id/dataframe_preview/:dataframe_id/"
+                component={requireAuthentication(DataFramePreview)}
+              />
 
-            <Route path="*" component={NotFoundView} />
-          </Switch>
+              <Route
+                path="/:organization_slug/project/:project_id/experiments/"
+                component={requireAuthentication(ExperimentList)}
+              />
+
+              <Route path="*" component={NotFoundView} />
+            </Switch>
+          </div>
 
           <FooterMain />
         </div>

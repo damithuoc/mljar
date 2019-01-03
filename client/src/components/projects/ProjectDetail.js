@@ -58,7 +58,16 @@ class ProjectView extends Component {
           <div className="col">
             <h4>Project {projectDetail.title}</h4>
             <p>{projectDetail.description}</p>
-            <Link to="/flow/" className="btn btn-primary mt-2">
+            <Link
+              to={
+                "/" +
+                organization.slug +
+                "/project/" +
+                projectDetail.id +
+                "/flow/"
+              }
+              className="btn btn-primary mt-2"
+            >
               Open FLOW
             </Link>
           </div>
