@@ -38,6 +38,7 @@ div.plotly-notifier {
   visibility: hidden;
 }
 
+/* graph CSS */
 #graph {
   height: 100%;
   width: 100%;
@@ -68,3 +69,4 @@ div.plotly-notifier {
   stroke: #80bfff;
   stroke-width: 1.7px;
 }
+/* END OF graph CSS */
