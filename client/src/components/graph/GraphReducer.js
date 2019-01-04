@@ -7,6 +7,7 @@ const initialState = {
 export function graphReducer(state = initialState, action) {
   switch (action.type) {
     case NODE_SELECTED:
+      console.log("yes, node selected" + action.node);
       return {
         ...state,
         selected_node: action.node

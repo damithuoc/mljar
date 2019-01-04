@@ -12,6 +12,8 @@ import dataFramePreviewReducer from "../components/dataFramePreview/dataFramePre
 import { experimentListReducer } from "../components/experimentList/experimentListReducer";
 import modalReducer from "../components/modals/ModalReducer";
 
+import { graphReducer } from "../components/graph/GraphReducer";
+
 export default history =>
   combineReducers({
     router: connectRouter(history),
@@ -24,5 +26,7 @@ export default history =>
     dataFrameList: dataFrameListReducer,
     dataFramePreview: dataFramePreviewReducer,
     experimentList: experimentListReducer,
+    graph: graphReducer,
+
     modal: modalReducer
   });

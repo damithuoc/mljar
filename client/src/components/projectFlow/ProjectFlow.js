@@ -7,6 +7,7 @@ import isEmpty from "../../validation/isEmpty";
 import moment from "moment";
 import { getProjectDetail } from "../../actions/projectDetailActions";
 import Graph from "../graph/Graph";
+import ProjectTabs from "./ProjectTabs";
 
 class ProjectFlow extends Component {
   componentDidMount() {
@@ -19,20 +20,23 @@ class ProjectFlow extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {}
-
   render() {
     const { organization_slug } = this.props.organization_slug;
     const { project_id } = this.props.project_id;
-
+    const { selected_node } = this.props.graph;
+    console.log(selected_node + "n");
+    let node = "node";
+    if (!isEmpty(selected_node)) {
+      node = selected_node.id;
+    }
     let containerHeight = window.innerHeight - 131;
     return (
       <div className="container-fluid" style={{ height: containerHeight }}>
         <div className="row" style={{ height: "35%" }}>
           <div className="col-1">
-            <ul class="list-unstyled components">
+            <ul className="list-unstyled components">
               <li>
-                <a href="#">Add data source</a>
+                <a href="">Add data source</a>
               </li>
               <li>
                 <a href="#">Add ML Experiment</a>
@@ -40,14 +44,14 @@ class ProjectFlow extends Component {
             </ul>
           </div>
           <div className="col-11">
-            <Graph />
+            <Graph {...this.props} />
           </div>
         </div>
 
         <div className="row" style={{ height: "65%" }}>
           <div className="col-12">
             <hr />
-            <h3>Panels</h3>
+            <ProjectTabs {...this.props} />
           </div>
         </div>
       </div>
@@ -60,14 +64,16 @@ ProjectFlow.propTypes = {
   getProjectDetail: PropTypes.func.isRequired,
   organization_slug: PropTypes.object.isRequired,
   project_id: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  graph: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
   projectDetail: state.projectDetail,
   organization_slug: ownProps.match.params,
   project_id: ownProps.match.params,
-  auth: state.auth
+  auth: state.auth,
+  graph: state.graph
 });
 
 export default connect(
