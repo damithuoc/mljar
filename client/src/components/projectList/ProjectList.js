@@ -91,9 +91,9 @@ class ProjectList extends Component {
       <div className="container">
         <div className="row">
           <div className="col-10">
-            <h1>
+            <h2>
               Projects {this.props.auth.organization.name} ({projCnt})
-            </h1>
+            </h2>
           </div>
 
           <div className="col-2">

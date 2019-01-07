@@ -54,7 +54,7 @@ class ProjectView extends Component {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h4>Project {projectDetail.title}</h4>
+            <h2>Project {projectDetail.title}</h2>
             <p>{projectDetail.description}</p>
             <Link
               to={
