@@ -9,7 +9,7 @@ class FooterMain extends React.Component {
   render() {
     return (
       <footer className="footer">
-        <div className="text-muted">MLJAR v0.0.1 - Use your data!</div>
+        <div className="text-muted">MLJAR v0.0.1 - Utilize your data!</div>
       </footer>
     );
   }

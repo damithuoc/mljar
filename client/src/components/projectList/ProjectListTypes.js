@@ -1,0 +1,5 @@
+export const PROJECTS_LOADING = "PROJECTS_LOADING";
+export const GET_PROJECTS = "GET_PROJECTS";
+export const OPEN_PROJECT = "OPEN_PROJECT";
+export const ADD_PROJECT = "ADD_PROJECT";
+export const GET_ERRORS = "GET_ERRORS";

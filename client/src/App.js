@@ -10,7 +10,7 @@ import NotFoundView from "./components/common/NotFound.js";
 import Home from "./components/Home";
 import Login from "./components/auth/Login";
 import LogoutView from "./components/auth/Logout.js";
-import Projects from "./components/projects/Projects";
+import ProjectList from "./components/projectList/ProjectList";
 import ProjectDetail from "./components/projects/ProjectDetail.js";
 
 import AddProject from "./components/projects/AddProject.js";
@@ -25,7 +25,7 @@ import ExperimentList from "./components/experimentList/experimentList";
 import ProjectFlow from "./components/projectFlow/ProjectFlow";
 
 import requireAuthentication from "./utils/requireAuthentication";
-
+import ModalRoot from "./components/modals/ModalRoot";
 import "./App.css";
 
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -38,6 +38,7 @@ class App extends Component {
         <div className="App">
           <NavbarMain />
           <div>
+            <ModalRoot />
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/logout" component={LogoutView} />
@@ -46,7 +47,7 @@ class App extends Component {
               <Route
                 exact
                 path="/:organization_slug/projects/"
-                component={requireAuthentication(Projects)}
+                component={requireAuthentication(ProjectList)}
               />
               <Route
                 exact

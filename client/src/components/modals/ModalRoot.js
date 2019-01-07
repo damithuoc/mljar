@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 
 import AlertModal from "./AlertModal";
 import CreateExperimentModal from "./createExperiment/CreateExperimentModal";
+import CreateProjectModal from "./createProject/CreateProjectModal";
 
 const MODAL_TYPES = {
-  alert: CreateExperimentModal
+  createProject: CreateProjectModal
 };
 
 const mapStateToProps = state => ({

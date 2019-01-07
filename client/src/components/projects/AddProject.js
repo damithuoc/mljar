@@ -7,7 +7,7 @@ import isEmpty from "../../validation/isEmpty";
 
 import TextFieldGroup from "../common/TextFieldGroup";
 
-import { addProject } from "../../actions/projectsActions";
+import { addProject } from "../projectList/ProjectListActions";
 
 class AddProjectView extends Component {
   constructor(props) {

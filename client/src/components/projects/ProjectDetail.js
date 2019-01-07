@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 import { getProjectDetail } from "../../actions/projectDetailActions";
 import { showModal, hideModal } from "../modals/ModalActions";
-import ModalRoot from "../modals/ModalRoot";
 
 import moment from "moment";
 
@@ -31,7 +30,7 @@ class ProjectView extends Component {
         message: "Good luck!",
         closeModal: this.closeModal
       },
-      "alert"
+      "createProject"
     );
   }
 
@@ -53,7 +52,6 @@ class ProjectView extends Component {
 
     return (
       <div className="container">
-        <ModalRoot />
         <div className="row">
           <div className="col">
             <h4>Project {projectDetail.title}</h4>

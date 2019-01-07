@@ -75,9 +75,9 @@ class NavbarMain extends React.Component {
         this.props.projectDetail.projectDetail.id;
 
     return (
-      <Navbar color="light" light expand="md" className="mb-3">
+      <Navbar light expand="md" className="mb-3 align-items-baseline">
         <Link to="/" className="navbar-brand">
-          MLJAR
+          mljar
         </Link>
 
         <Collapse isOpen={this.state.isOpen} navbar>
@@ -88,7 +88,7 @@ class NavbarMain extends React.Component {
                   to={"/" + organization.slug + "/projects/"}
                   className="nav-link"
                 >
-                  Projects {organization.slug}
+                  All projects
                 </Link>
               </NavItem>
             ) : (
@@ -99,7 +99,7 @@ class NavbarMain extends React.Component {
               <NavItem>
                 <Link to={project_link} className="nav-link">
                   <strong>
-                    Current: {this.props.projectDetail.projectDetail.title}
+                    {this.props.projectDetail.projectDetail.title}
                   </strong>
                 </Link>
               </NavItem>

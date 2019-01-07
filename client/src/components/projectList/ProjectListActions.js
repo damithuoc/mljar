@@ -1,9 +1,6 @@
 import axios from "axios";
-import { PROJECTS_LOADING, GET_PROJECTS, GET_ERRORS } from "./types";
+import { PROJECTS_LOADING, GET_PROJECTS, GET_ERRORS } from "./ProjectListTypes";
 import { push } from "connected-react-router";
-
-//let apiUrl;
-//(process.env.REACT_APP_API_URL!==undefined) ? apiUrl=process.env.REACT_APP_API_URL : apiUrl=""
 
 // Get all projects
 export const getProjects = organization_slug => dispatch => {
@@ -35,7 +32,10 @@ export const setProjectsLoading = () => {
 export const addProject = projectData => dispatch => {
   axios
     .post(`/api/v1/personal/projects`, projectData)
-    .then(res => dispatch(push("/projects")))
+    .then(res => {
+      console.log("then addProject ");
+      //dispatch(push("/projects"));
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

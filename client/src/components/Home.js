@@ -40,7 +40,7 @@ class Home extends Component {
     return (
       <div className="container text-center">
         <h2>MLJAR</h2>
-        <h3>Use your data!</h3>
+        <h3>Utilize your data!</h3>
         <div className="container-fluid">
           <Row>
             {isAuthenticated ? projects_card : login_card}
@@ -62,12 +62,9 @@ class Home extends Component {
             <Col sm="6" style={{ padding: "15px" }}>
               <Card body>
                 <CardTitle>Got feature request or found a bug?</CardTitle>
-                <CardText>
-                  Please submit the issue at our github. Looking forward to hear
-                  more!
-                </CardText>
+                <CardText>Please submit the issue on github.</CardText>
                 <a
-                  href="https://github.com/mljar/mljar/issues"
+                  href="https://github.com/mljar/mljar/issues/new"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-secondary mt-2 btn-block"
@@ -80,7 +77,8 @@ class Home extends Component {
               <Card body>
                 <CardTitle>Need support?</CardTitle>
                 <CardText>
-                  Check out our support forum and ask help from our community.
+                  Please check github issues or send us email at
+                  contact@mljar.com.
                 </CardText>
 
                 <a
@@ -89,7 +87,7 @@ class Home extends Component {
                   rel="noopener noreferrer"
                   className="btn btn-secondary mt-2 btn-block"
                 >
-                  Go to support forum
+                  Github issues
                 </a>
               </Card>
             </Col>
