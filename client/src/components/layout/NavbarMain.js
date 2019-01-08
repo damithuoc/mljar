@@ -99,6 +99,7 @@ class NavbarMain extends React.Component {
               <NavItem>
                 <Link to={project_link} className="nav-link">
                   <strong>
+                    <i className="fa fa-folder-open-o" aria-hidden="true" />{" "}
                     {this.props.projectDetail.projectDetail.title}
                   </strong>
                 </Link>

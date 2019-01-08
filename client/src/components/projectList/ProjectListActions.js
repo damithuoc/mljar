@@ -1,5 +1,10 @@
 import axios from "axios";
-import { PROJECTS_LOADING, GET_PROJECTS, GET_ERRORS } from "./ProjectListTypes";
+import {
+  PROJECTS_LOADING,
+  GET_PROJECTS,
+  GET_ERRORS,
+  DELETE_PROJECT
+} from "./ProjectListTypes";
 import { push } from "connected-react-router";
 
 // Get all projects
@@ -34,6 +39,7 @@ export const addProject = projectData => dispatch => {
     .post(`/api/v1/personal/projects`, projectData)
     .then(res => {
       console.log("then addProject ");
+      console.log(res);
       //dispatch(push("/projects"));
     })
     .catch(err =>
@@ -48,4 +54,27 @@ export const addProject = projectData => dispatch => {
 export const openProject = (organization_slug, project_id) => dispatch => {
   console.log("openProject action", project_id);
   dispatch(push("/" + organization_slug + "/project/" + project_id));
+};
+
+// Delete project
+export const deleteProject = (organizationSlug, projectId) => dispatch => {
+  axios
+    .delete(`/api/v1/${organizationSlug}/projects/${projectId}`) //
+    .then(res => {
+      console.log(res);
+
+      dispatch({
+        type: DELETE_PROJECT,
+        projectId: projectId
+      });
+    })
+    .catch(
+      err => {
+        console.log(err);
+      }
+      //dispatch({
+      //    type: GET_PROJECTS,
+      //    payload: null
+      //  })
+    );
 };

@@ -1,4 +1,8 @@
-import { PROJECTS_LOADING, GET_PROJECTS } from "./ProjectListTypes";
+import {
+  PROJECTS_LOADING,
+  GET_PROJECTS,
+  DELETE_PROJECT
+} from "./ProjectListTypes";
 
 const initialState = {
   projects: [],
@@ -16,6 +20,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         projects: action.payload,
+        loading: false
+      };
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        projects: state.projects.filter(
+          (item, index) => item.id !== action.projectId
+        ),
         loading: false
       };
     default:

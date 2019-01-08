@@ -3,12 +3,13 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { getProjects, openProject } from "./ProjectListActions";
+import { getProjects, openProject, deleteProject } from "./ProjectListActions";
 
 import moment from "moment";
 
 import { showModal, hideModal } from "../modals/ModalActions";
-import { Button } from "reactstrap";
+import { Button, UncontrolledTooltip } from "reactstrap";
+import confirm from "reactstrap-confirm";
 
 class ProjectList extends Component {
   constructor(props) {
@@ -34,6 +35,25 @@ class ProjectList extends Component {
     );
   }
 
+  async deleteProject(projectId, projectTitle) {
+    let confirmed = await confirm({
+      title: "Please confirm",
+      message: (
+        <p>
+          You are going to delete your project: <b>{projectTitle}</b>. All items
+          associated with the project will be irreversibly deleted. Please
+          confirm.
+        </p>
+      ),
+      confirmText: "Delete"
+    });
+
+    if (confirmed) {
+      const { organization } = this.props.auth;
+      this.props.deleteProject(organization.slug, projectId);
+    }
+  }
+
   componentDidMount() {
     this.props.getProjects();
   }
@@ -53,13 +73,47 @@ class ProjectList extends Component {
       projectsItems = <div>Loading projects ...</div>;
     } else {
       if (projects.length > 0) {
-        projectsItems = projects.map(project => {
+        projectsItems = projects.map((project, index) => {
           return (
-            <div className="col-6 mt-2">
+            <div className="col-6 mt-2" key={"proj" + index}>
               <div className="projectdiv">
-                <h4>
-                  Project: {project.title} <br />
-                </h4>
+                <b className="projectTitle">
+                  <i className="fa fa-folder-o" aria-hidden="true" />{" "}
+                  {project.title}
+                </b>
+                <UncontrolledTooltip
+                  placement="top"
+                  target={"deleteProjectBtn" + index}
+                >
+                  Delete this project
+                </UncontrolledTooltip>
+                <UncontrolledTooltip
+                  placement="top"
+                  target={"editProjectBtn" + index}
+                >
+                  Edit this project
+                </UncontrolledTooltip>
+                <Button
+                  id={"deleteProjectBtn" + index}
+                  color="link"
+                  className="float-right projectSmallButtons"
+                  onClick={this.deleteProject.bind(
+                    this,
+                    project.id,
+                    project.title
+                  )}
+                >
+                  <i className="fa fa-times" aria-hidden="true" />
+                </Button>
+                <Button
+                  id={"editProjectBtn" + index}
+                  color="link"
+                  className="float-right projectSmallButtons"
+                  onClick={this.onOpenProject.bind(this, project.id)}
+                >
+                  <i className="fa fa-pencil" aria-hidden="true" />
+                </Button>
+                <br />
                 <b>Description:</b> {project.description} <br />
                 <b>Created by:</b> {project.created_by_username} <br />
                 <b>Last update:</b> {moment(project.updated_at).fromNow()}{" "}
@@ -75,6 +129,7 @@ class ProjectList extends Component {
                 >
                   <b>Open project</b>
                 </Button>{" "}
+                <br />
                 <br />
               </div>
             </div>
@@ -118,6 +173,7 @@ class ProjectList extends Component {
 ProjectList.propTypes = {
   getProjects: PropTypes.func.isRequired,
   openProject: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
 
   showModal: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
@@ -133,5 +189,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { getProjects, openProject, showModal, hideModal }
+  { getProjects, openProject, showModal, hideModal, deleteProject }
 )(withRouter(ProjectList));

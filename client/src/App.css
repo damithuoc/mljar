@@ -100,5 +100,14 @@ div.plotly-notifier {
   padding: 21px;
   margin: 7px;
   border-top: 5px solid #3498db;
+  border-bottom: 1px solid #d4e9f7;
   background-color: #f6f8fa; /*#3498db;*/
+}
+
+.projectTitle {
+  font-size: 23px;
+}
+
+.projectSmallButtons {
+  color: #999999;
 }
