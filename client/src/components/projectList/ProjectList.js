@@ -30,8 +30,23 @@ class ProjectList extends Component {
     this.props.showModal(
       {
         open: true,
-        title: "Alert Modal",
-        message: "Good luck!",
+        title: "",
+        description: "",
+        isEditMode: false,
+        closeModal: this.closeModal
+      },
+      "createProject"
+    );
+  }
+
+  openEditProjectModal(project) {
+    this.props.showModal(
+      {
+        open: true,
+        title: project.title,
+        description: project.description,
+        isEditMode: true,
+        projectId: project.id,
         closeModal: this.closeModal
       },
       "createProject"
@@ -113,7 +128,7 @@ class ProjectList extends Component {
                   id={"editProjectBtn" + index}
                   color="link"
                   className="float-right projectSmallButtons"
-                  onClick={this.onOpenProject.bind(this, project.id)}
+                  onClick={this.openEditProjectModal.bind(this, project)}
                 >
                   <i className="fa fa-pencil" aria-hidden="true" />
                 </Button>

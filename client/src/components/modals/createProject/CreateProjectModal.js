@@ -5,9 +5,11 @@ import PropTypes from "prop-types";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormGroup, Label, Input } from "reactstrap";
-import { addProject } from "../../projectList/ProjectListActions";
+import {
+  addProject,
+  updateProject
+} from "../../projectList/ProjectListActions";
 
-//import isEmpty from "../../../validation/isEmpty";
 import {
   AvForm,
   AvGroup,
@@ -20,12 +22,24 @@ class CreateProjectModal extends Component {
     super(props);
     this.state = {
       isShow: true,
-      title: "",
-      description: ""
+      title: this.props.title,
+      description: this.props.description,
+      isEditMode: this.props.isEditMode
     };
 
     this.onChange = this.onChange.bind(this);
     this.onCreate = this.onCreate.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+  }
+  onUpdate() {
+    if (this.state.title !== "") {
+      const projectData = {
+        title: this.state.title,
+        description: this.state.description
+      };
+      this.props.updateProject(this.props.projectId, projectData);
+      this.props.closeModal();
+    }
   }
   onCreate() {
     if (this.state.title !== "") {
@@ -61,6 +75,7 @@ class CreateProjectModal extends Component {
               <AvInput
                 type="text"
                 name="title"
+                value={this.state.title}
                 id="projTitle"
                 placeholder="Name of your project"
                 autoFocus={true}
@@ -76,6 +91,7 @@ class CreateProjectModal extends Component {
                 type="textarea"
                 rows={7}
                 name="description"
+                value={this.state.description}
                 id="projDesc"
                 onChange={this.onChange}
                 placeholder="Description of project. What is your goal?"
@@ -86,9 +102,16 @@ class CreateProjectModal extends Component {
             <Button outline color="secondary" onClick={this.props.closeModal}>
               Cancel
             </Button>
-            <Button color="primary" onClick={this.onCreate}>
-              Create
-            </Button>{" "}
+            {!this.state.isEditMode && (
+              <Button color="primary" onClick={this.onCreate}>
+                Create
+              </Button>
+            )}
+            {this.state.isEditMode && (
+              <Button color="primary" onClick={this.onUpdate}>
+                Update
+              </Button>
+            )}{" "}
           </ModalFooter>
         </AvForm>
       </Modal>
@@ -107,5 +130,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { addProject }
+  { addProject, updateProject }
 )(withRouter(CreateProjectModal));
