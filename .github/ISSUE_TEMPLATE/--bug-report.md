@@ -19,7 +19,3 @@ as you can including the following.
 - Your operating system
 - MLJAR version (example version-1.2.3)
 - MLJAR hosting environment
-
-### Feature requests and proposals
-
-We're excited to hear how we can make MLJAR better. Please add as much detail as you can on your use case :) Thank you!
