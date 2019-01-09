@@ -1,6 +1,7 @@
 import {
   PROJECTS_LOADING,
   GET_PROJECTS,
+  ADD_PROJECT,
   DELETE_PROJECT
 } from "./ProjectListTypes";
 
@@ -20,6 +21,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         projects: action.payload,
+        loading: false
+      };
+
+    case ADD_PROJECT:
+      return {
+        ...state,
+        projects: [...state.projects, action.newProject],
         loading: false
       };
     case DELETE_PROJECT:

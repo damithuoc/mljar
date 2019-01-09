@@ -27,6 +27,7 @@ import ProjectFlow from "./components/projectFlow/ProjectFlow";
 import requireAuthentication from "./utils/requireAuthentication";
 import ModalRoot from "./components/modals/ModalRoot";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -39,6 +40,7 @@ class App extends Component {
           <NavbarMain />
           <div>
             <ModalRoot />
+            <ToastContainer />
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/logout" component={LogoutView} />

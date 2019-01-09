@@ -64,6 +64,7 @@ class CreateProjectModal extends React.Component {
         onExit={this.onExit}
         toggle={this.props.closeModal}
         size={"md"}
+        autoFocus={false}
       >
         <ModalHeader>
           {" "}
@@ -78,6 +79,7 @@ class CreateProjectModal extends React.Component {
                 name="title"
                 id="projTitle"
                 placeholder="Name of your project"
+                autoFocus={true}
                 onChange={this.onChange}
                 required
               />

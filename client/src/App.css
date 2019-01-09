@@ -111,3 +111,22 @@ div.plotly-notifier {
 .projectSmallButtons {
   color: #999999;
 }
+
+.Toastify__toast--success {
+  background: #28a745;
+}
+.Toastify__toast--error {
+  background: #dc3545;
+}
+.Toastify__toast--info {
+  background: #3498db;
+}
+
+.block-ui-message {
+  font-size: 19px;
+  font-weight: bold;
+}
+.loading-bullet {
+  font-size: 2em;
+  color: #28a745;
+}

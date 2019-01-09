@@ -6,10 +6,15 @@ import PropTypes from "prop-types";
 import { getProjects, openProject, deleteProject } from "./ProjectListActions";
 
 import moment from "moment";
+import isEmpty from "../../validation/isEmpty";
 
 import { showModal, hideModal } from "../modals/ModalActions";
 import { Button, UncontrolledTooltip } from "reactstrap";
 import confirm from "reactstrap-confirm";
+import { toast } from "react-toastify";
+
+import BlockUi from "react-block-ui";
+import "react-block-ui/style.css";
 
 class ProjectList extends Component {
   constructor(props) {
@@ -55,7 +60,8 @@ class ProjectList extends Component {
   }
 
   componentDidMount() {
-    this.props.getProjects();
+    const { organization_slug } = this.props.organization_slug;
+    this.props.getProjects(organization_slug);
   }
 
   componentDidUpdate(prevProps) {}
@@ -68,8 +74,10 @@ class ProjectList extends Component {
   render() {
     const { projects, loading } = this.props.projects;
     let projectsItems;
+    console.log(isEmpty(projects) + " - " + loading);
+    console.log(projects);
 
-    if (projects === null || loading) {
+    if (isEmpty(projects) && loading) {
       projectsItems = <div>Loading projects ...</div>;
     } else {
       if (projects.length > 0) {
@@ -141,7 +149,7 @@ class ProjectList extends Component {
     }
 
     const projCnt = projects.length;
-
+    console.log("props" + loading);
     return (
       <div className="container">
         <div className="row">
@@ -163,7 +171,13 @@ class ProjectList extends Component {
         <hr />
 
         <div className="container">
-          <div className="row  mb-3 mt-3">{projectsItems}</div>
+          <BlockUi
+            tag="div"
+            blocking={!isEmpty(projects) && loading}
+            message="Please wait"
+          >
+            <div className="row  mb-3 mt-3">{projectsItems}</div>
+          </BlockUi>
         </div>
       </div>
     );
@@ -178,11 +192,13 @@ ProjectList.propTypes = {
   showModal: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
 
+  organization_slug: PropTypes.object.isRequired,
   projects: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  organization_slug: ownProps.match.params,
   projects: state.projects,
   auth: state.auth
 });
