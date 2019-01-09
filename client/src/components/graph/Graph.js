@@ -1,20 +1,13 @@
 import * as React from "react";
 
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import isEmpty from "../../validation/isEmpty";
 
-import {
-  GraphView,
-  type IEdgeType as IEdge,
-  type INodeType as INode,
-  type LayoutEngineType
-} from "react-digraph";
+import { GraphView, type INodeType as INode } from "react-digraph";
 import GraphConfig, {
-  edgeTypes,
-  nodeTypes,
   NODE_KEY,
   EDGE_TYPE,
   UPLOAD_TYPE,
@@ -25,11 +18,6 @@ import GraphConfig, {
 } from "./GraphConfig";
 
 import { selectNode } from "./GraphActions.js";
-
-type IGraph = {
-  nodes: INode[],
-  edges: IEdge[]
-};
 
 const sample = {
   edges: [

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -11,10 +11,8 @@ import isEmpty from "../../validation/isEmpty";
 import { showModal, hideModal } from "../modals/ModalActions";
 import { Button, UncontrolledTooltip } from "reactstrap";
 import confirm from "reactstrap-confirm";
-import { toast } from "react-toastify";
 
 import BlockUi from "react-block-ui";
-import "react-block-ui/style.css";
 
 class ProjectList extends Component {
   constructor(props) {
@@ -74,8 +72,6 @@ class ProjectList extends Component {
   render() {
     const { projects, loading } = this.props.projects;
     let projectsItems;
-    console.log(isEmpty(projects) + " - " + loading);
-    console.log(projects);
 
     if (isEmpty(projects) && loading) {
       projectsItems = <div>Loading projects ...</div>;
@@ -149,7 +145,7 @@ class ProjectList extends Component {
     }
 
     const projCnt = projects.length;
-    console.log("props" + loading);
+
     return (
       <div className="container">
         <div className="row">

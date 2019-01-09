@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CREATE_EXPERIMENT } from "./CreateExperimentTypes";
+//import { CREATE_EXPERIMENT } from "./CreateExperimentTypes";
 
 export const createExperiment = (
   organization_slug,

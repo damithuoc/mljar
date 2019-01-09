@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import isEmpty from "../../validation/isEmpty";
-import moment from "moment";
+//import moment from "moment";
 import { getProjectDetail } from "../../actions/projectDetailActions";
 import Graph from "../graph/Graph";
 import ProjectTabs from "./ProjectTabs";
@@ -21,14 +21,12 @@ class ProjectFlow extends Component {
   }
 
   render() {
-    const { organization_slug } = this.props.organization_slug;
-    const { project_id } = this.props.project_id;
+    //const { organization_slug } = this.props.organization_slug;
+    //const { project_id } = this.props.project_id;
     const { selected_node } = this.props.graph;
     console.log(selected_node + "n");
-    let node = "node";
-    if (!isEmpty(selected_node)) {
-      node = selected_node.id;
-    }
+    //let node = isEmpty(selected_node) ? "node" : selected_node.id;
+
     let containerHeight = window.innerHeight - 131;
     return (
       <div className="container-fluid" style={{ height: containerHeight }}>
@@ -36,10 +34,12 @@ class ProjectFlow extends Component {
           <div className="col-1">
             <ul className="list-unstyled components">
               <li>
-                <a href="">Add data source</a>
+                Add data source
+                {/*<a href="">Add data source</a>*/}
               </li>
               <li>
-                <a href="#">Add ML Experiment</a>
+                Add ML Experiment
+                {/*}<a href="#">Add ML Experiment</a>*/}
               </li>
             </ul>
           </div>

@@ -1,26 +1,13 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import isEmpty from "../../validation/isEmpty";
-import moment from "moment";
+//import moment from "moment";
 import { getProjectDetail } from "../../actions/projectDetailActions";
-import Graph from "../graph/Graph";
 
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col
-} from "reactstrap";
+import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 
 class ProjectTabs extends Component {

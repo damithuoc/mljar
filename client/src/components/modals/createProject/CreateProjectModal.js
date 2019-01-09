@@ -1,67 +1,52 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { FormGroup, Label, Input } from "reactstrap";
 import { addProject } from "../../projectList/ProjectListActions";
 
 import isEmpty from "../../../validation/isEmpty";
 import {
   AvForm,
-  AvField,
   AvGroup,
   AvInput,
-  AvFeedback,
-  AvRadioGroup,
-  AvRadio,
-  AvCheckboxGroup,
-  AvCheckbox
+  AvFeedback
 } from "availity-reactstrap-validation";
 
-class CreateProjectModal extends React.Component {
+class CreateProjectModal extends Component {
   constructor(props) {
-    console.log("CreateProjectModal constructor");
-
     super(props);
-    console.log(props);
     this.state = {
       isShow: true,
       title: "",
       description: ""
     };
-    this.onExist = this.onExit.bind(this);
+
     this.onChange = this.onChange.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(event, errors, values) {
-    this.setState({ errors, values });
 
-    if (isEmpty(errors)) {
-      const projectData = {
-        title: this.state.title,
-        description: this.state.description
-      };
+  handleSubmit(event, values) {
+    this.props.closeModal();
 
-      this.props.addProject(projectData);
-      this.props.closeModal();
-    }
+    /*const projectData = {
+      title: this.state.title,
+      description: this.state.description
+    };
+    this.props.addProject(projectData);*/
   }
-  componentDidMount() {}
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onExit() {}
-
   render() {
     return (
       <Modal
         isOpen={true}
-        onExit={this.onExit}
         toggle={this.props.closeModal}
         size={"md"}
         autoFocus={false}
@@ -70,7 +55,7 @@ class CreateProjectModal extends React.Component {
           {" "}
           <i className="fa fa-rocket" aria-hidden="true" /> Create new project
         </ModalHeader>
-        <AvForm onSubmit={this.handleSubmit}>
+        <AvForm onValidSubmit={this.handleSubmit}>
           <ModalBody>
             <AvGroup>
               <Label for="projTitle">Title</Label>
@@ -102,9 +87,7 @@ class CreateProjectModal extends React.Component {
             <Button outline color="secondary" onClick={this.props.closeModal}>
               Cancel
             </Button>
-            <Button color="primary" type="submit">
-              Create
-            </Button>{" "}
+            <Button color="primary">Create</Button>{" "}
           </ModalFooter>
         </AvForm>
       </Modal>

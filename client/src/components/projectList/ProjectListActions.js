@@ -2,16 +2,15 @@ import axios from "axios";
 import {
   PROJECTS_LOADING,
   GET_PROJECTS,
-  GET_ERRORS,
   ADD_PROJECT,
   DELETE_PROJECT
 } from "./ProjectListTypes";
 import { push } from "connected-react-router";
 import { toast } from "react-toastify";
 
-function sleep(time) {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
+//function sleep(time) {
+//  return new Promise(resolve => setTimeout(resolve, time));
+//}
 
 // Get all projects
 export const getProjects = organization_slug => dispatch => {
