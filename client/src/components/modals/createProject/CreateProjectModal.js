@@ -7,7 +7,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormGroup, Label, Input } from "reactstrap";
 import { addProject } from "../../projectList/ProjectListActions";
 
-import isEmpty from "../../../validation/isEmpty";
+//import isEmpty from "../../../validation/isEmpty";
 import {
   AvForm,
   AvGroup,
@@ -25,18 +25,17 @@ class CreateProjectModal extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onCreate = this.onCreate.bind(this);
   }
-
-  handleSubmit(event, values) {
-    this.props.closeModal();
-
-    /*const projectData = {
-      title: this.state.title,
-      description: this.state.description
-    };
-    this.props.addProject(projectData);*/
+  onCreate() {
+    if (this.state.title !== "") {
+      const projectData = {
+        title: this.state.title,
+        description: this.state.description
+      };
+      this.props.addProject(projectData);
+      this.props.closeModal();
+    }
   }
 
   onChange(e) {
@@ -55,7 +54,7 @@ class CreateProjectModal extends Component {
           {" "}
           <i className="fa fa-rocket" aria-hidden="true" /> Create new project
         </ModalHeader>
-        <AvForm onValidSubmit={this.handleSubmit}>
+        <AvForm>
           <ModalBody>
             <AvGroup>
               <Label for="projTitle">Title</Label>
@@ -87,7 +86,9 @@ class CreateProjectModal extends Component {
             <Button outline color="secondary" onClick={this.props.closeModal}>
               Cancel
             </Button>
-            <Button color="primary">Create</Button>{" "}
+            <Button color="primary" onClick={this.onCreate}>
+              Create
+            </Button>{" "}
           </ModalFooter>
         </AvForm>
       </Modal>
