@@ -54,7 +54,10 @@ class ProjectView extends Component {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h2>Project {projectDetail.title}</h2>
+            <h2>
+              <i className="fa fa-folder-open-o" aria-hidden="true" /> Project{" "}
+              {projectDetail.title}
+            </h2>
             <p>{projectDetail.description}</p>
             <Link
               to={
@@ -98,24 +101,9 @@ class ProjectView extends Component {
             >
               List
             </Link>{" "}
-            | <Link to="/datasources/add/">Add new</Link>
+            {/*| <Link to="/datasources/add/">Add new</Link>*/}
             <br />
             <br />
-          </div>
-          <div className="col-3">
-            <h5>Data frames</h5>
-            <h2>{projectDetail.dataframes_cnt}</h2>
-            <Link
-              to={
-                "/" +
-                organization.slug +
-                "/project/" +
-                projectDetail.id +
-                "/dataframes/"
-              }
-            >
-              List
-            </Link>
           </div>
 
           <div className="col-3">
@@ -132,16 +120,8 @@ class ProjectView extends Component {
             >
               List
             </Link>
-            <button
-              className="btn btn-primary btn-block"
-              onClick={this.openAlertModal}
-            >
-              alert
-            </button>{" "}
           </div>
-          <div className="col-3">
-            <h5>ML models</h5>
-          </div>
+
           <div className="col-3">
             <h5>Predictions</h5>
             Coming soon!
